@@ -1,4 +1,5 @@
-package HotelClass;
+package Classes;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,9 +10,9 @@ public class Staff {
     private String name, email, password, dateOfBirth, staffIC;
     private int age;
 
-    // Constructor
+    // Constructors
     public Staff(String name, String email, String password, String dateOfBirth, String staffIC) throws Exception {
-        if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank() || staffIC.isBlank() || staffIC == null || staffIC.length() < 12 || dateOfBirth.isBlank() || dateOfBirth == null) {
+        if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank() || staffIC.isBlank() || staffIC == null || staffIC.length() < 11 || dateOfBirth.isBlank() || dateOfBirth == null) {
             throw new IllegalArgumentException("Fields cannot be blank!");
         }
         
@@ -130,10 +131,10 @@ public class Staff {
 
     // toString()
     public String toString() {
-        return ("Name: " + this.name + 
-                "\nAge: " + this.age + 
-                "\nIC: " + this.staffIC +
-                "\nDate of birth: " + this.dateOfBirth + 
-                "\nEmail: " + this.email + "\n\n");
+        return ("Name\t\t: " + this.name + 
+                "\nAge\t\t: " + this.age + 
+                "\nIC\t\t: " + this.staffIC +
+                "\nDate of birth\t: " + this.dateOfBirth + 
+                "\nEmail\t\t: " + this.email + "\n\n");
     }   
 }

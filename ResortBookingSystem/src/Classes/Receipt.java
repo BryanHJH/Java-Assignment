@@ -1,4 +1,5 @@
-package HotelClass;
+package Classes;
+
 
 public class Receipt {
     private String custIC, custName, custAddress;
@@ -47,5 +48,44 @@ public class Receipt {
     }
 
     // Setters
+    public void setCustName(String custName) {
+        if (custName == null || custName.isBlank()) {
+            throw new IllegalArgumentException("Customer name cannot be blank or null!");
+        }
+
+        this.custName = custName;
+    }
+
+    public void setCustAddress(String custAddress) {
+        if (custAddress == null || custAddress.isBlank()) {
+            throw new IllegalArgumentException("Customer address cannot be blank or null!");
+        }
+
+        this.custAddress = custAddress;
+    }
     
+    public void setCustIC(String custIC) {
+        if (custIC == null || custIC.isBlank()) {
+            throw new IllegalArgumentException("Customer IC cannot be blank or null!");
+        }
+
+        this.custIC = custIC;
+    }
+
+    public void setCustFamily(int custFamily) {
+        if (custFamily < 0) {
+            throw new IllegalArgumentException("Customer's number of family members cannot be less than zero!");
+        }
+
+        this.custFamily = custFamily;
+    }
+
+    public void setDurationOfStay(int durationOfStay) {
+        if (durationOfStay <= 0) {
+            throw new IllegalArgumentException("Customer's duration of stay cannot be blank or null!");
+        }
+
+        this.durationOfStay = durationOfStay;
+    }
+
 }
