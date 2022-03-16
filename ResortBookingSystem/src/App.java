@@ -1,18 +1,20 @@
-import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application{
 
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./FXML/Login.fxml"));
-        Parent root = loader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage/Login.fxml"));
         Scene scene = new Scene(root);
+        primaryStage.getIcons().add(new Image("Images/booking.jpg"));
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Resort Booking System");
         primaryStage.show();
     }
 

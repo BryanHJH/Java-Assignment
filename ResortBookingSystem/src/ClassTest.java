@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import Classes.Hotel;
@@ -70,7 +69,8 @@ public class ClassTest {
         System.out.println(testHotel);
         testHotel.saveData();
 
-        File staffFile = new File("Text Files/Staff.txt");
+        File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
+        System.out.println(staffFile.exists());
 
         String[] test = printContents(staffFile);
 

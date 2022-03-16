@@ -75,9 +75,9 @@ public class Hotel {
         String jungleRooms = "";
         String seaRooms = "";
 
-        File staffFile = new File("Text Files/Staff.txt");
-        File jungleFile = new File("Text Files/Jungle Rooms.txt");
-        File seaFile = new File("Text Files/Sea Rooms.txt");
+        File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
+        File jungleFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Jungle Rooms.txt");
+        File seaFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Sea Rooms.txt");
 
         for (Staff item: this.staffList) {
             String message = item.getName() + "; " + item.getEmail() + "; " + item.getPassword() + "; " + item.getDateOfBirth() + "; " + item.getStaffIC();

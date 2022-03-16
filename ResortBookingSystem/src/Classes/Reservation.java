@@ -1,12 +1,19 @@
 package Classes;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
-public class Receipt {
+import javax.lang.model.util.SimpleAnnotationValueVisitor14;
+
+public class Reservation {
     private String custIC, custName, custAddress;
     private int custFamily, durationOfStay;
+    private Date checkIn, checkOut;
+
 
     // Constructors
-    public Receipt(String custIC, String custName, String custAddress, int custFamily, int durationOfStay) {
+    public Reservation(String custIC, String custName, String custAddress, int custFamily, Date checkIn, Date checkOut) {
         if (custIC == null || custIC.isBlank() || custName == null || custName.isBlank() || custAddress == null || custAddress.isBlank() || custFamily < 0 || durationOfStay < 0) {
             throw new IllegalArgumentException("Fields contain invalid values");
         }
@@ -15,10 +22,14 @@ public class Receipt {
         this.custName = custName;
         this.custAddress = custAddress;
         this.custFamily = custFamily;
-        this.durationOfStay = durationOfStay;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+
+        long duration = this.checkOut.getTime() - this.checkIn.getTime();
+        this.durationOfStay = (int) TimeUnit.DAYS.convert(duration, TimeUnit.MILLISECONDS);;
     }
 
-    public Receipt(Receipt source) {
+    public Reservation(Reservation source) {
         this.custIC = source.custIC;
         this.custName = source.custName;
         this.custAddress = source.custAddress;
