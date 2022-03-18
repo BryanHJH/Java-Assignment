@@ -5,26 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Hotel {
     private ArrayList<Staff> staffList;
-    private Room[] jungleRoomList;
-    private Room[] seaRoomList;
+    private Room[] roomList;
 
     // Constructors
-    public Hotel(Room[] jungleRoomList, Room[] seaRoomList) {
+    public Hotel(Room[] roomList) {
         this.staffList = new ArrayList<Staff>();
-        this.jungleRoomList = Arrays.copyOf(jungleRoomList, jungleRoomList.length);
-        this.seaRoomList = Arrays.copyOf(seaRoomList, seaRoomList.length);
+        this.roomList = Arrays.copyOf(roomList, roomList.length);
     }
 
     // Getters
-    public Room getJungleRoom(int index) {
-        return this.jungleRoomList[index];
-    }
-
-    public Room getSeaRoom(int index) {
-        return this.seaRoomList[index];
+    public Room getRoom(int index) {
+        return this.roomList[index];
     }
 
     public Staff getStaff(int index) {
@@ -32,12 +27,8 @@ public class Hotel {
     }
 
     // Setters
-    public void setJungleRoom(int index, Room newJungleRoom) {
-        this.jungleRoomList[index] = new Room(newJungleRoom);
-    }
-
-    public void setSeaRoom(int index, Room newSeaRoom) {
-        this.seaRoomList[index] = new Room(newSeaRoom);
+    public void setJungleRoom(int index, Room newRoom) {
+        this.roomList[index] = new Room(newRoom);
     }
 
     public void setStaff(int index, Staff newStaff) {
@@ -58,6 +49,41 @@ public class Hotel {
         }
     }
 
+    // Adding and removing available dates for rooms
+    public void addDate(String roomID, String date) throws Exception {
+        for (int i = 0; i < this.roomList.length; i++) {
+            if (this.roomList[i].getRoomID().equals(roomID)) {
+                this.roomList[i].addAvailableDate(date);
+                break;
+            }
+        }
+    }
+    
+    public void removeDate(String roomID, String date) throws Exception {
+        for (int i = 0; i < this.roomList.length; i++) {
+            if (this.roomList[i].getRoomID().equals(roomID)) {
+                this.roomList[i].removeAvailableDate(date);
+                break;
+            }
+        }
+    }
+
+    // Reading from a file
+    // public void getData(ArrayList<File> files) throws FileNotFoundException {
+        
+    //     for (File file: files) {
+    //         Scanner fileScan = new Scanner(file);
+    //         while (fileScan.hasNextLine()) {
+    //             String[] entities = fileScan.nextLine().split(", ");
+    //             for (String entity: entities) {
+    //                 String[] details = entity.split("; ");
+    //             }
+    //         }
+
+    //         fileScan.close();
+    //     }
+    // }
+
     // Writing to a file
     public void writeFile(File file, String message) throws Exception {
         FileWriter fwriter = new FileWriter(file);
@@ -70,14 +96,9 @@ public class Hotel {
     }
 
     // Writing the arrays to a text file
-    public void saveData() throws Exception {
+    public void saveStaffData() throws Exception {
         String staff = "";
-        String jungleRooms = "";
-        String seaRooms = "";
-
         File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
-        File jungleFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Jungle Rooms.txt");
-        File seaFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Sea Rooms.txt");
 
         for (Staff item: this.staffList) {
             String message = item.getName() + "; " + item.getEmail() + "; " + item.getPassword() + "; " + item.getDateOfBirth() + "; " + item.getStaffIC();
@@ -85,21 +106,30 @@ public class Hotel {
             staff += "\n";
         }
 
-        for (Room room: this.jungleRoomList) {
-            String message = room.getRoomID() + "; " + room.getNumberOfBeds() + "; " + room.getRoomView() + "; " + room.getPrice();
-            jungleRooms += message;
-            jungleRooms += "\n";
-        }
+        writeFile(staffFile, staff);
+    }
+
+    public void saveRoomData() throws Exception {
+        String allRooms = "";
+        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.txt");
         
-        for (Room room: this.seaRoomList) {
-            String message = room.getRoomID() + "; " + room.getNumberOfBeds() + "; " + room.getRoomView() + "; " + room.getPrice();
-            seaRooms += message;
-            seaRooms += "\n";
+        for (Room room: this.roomList) {
+            String message = room.getRoomID() + "; " + room.getNumberOfBeds() + "; " + room.getRoomView() + "; " + room.getPrice() + "; " + room.getAvailableDates();
+            allRooms += message;
+            allRooms += "\n";
         }
 
-        writeFile(staffFile, staff);
-        writeFile(jungleFile, jungleRooms);
-        writeFile(seaFile, seaRooms);
+        writeFile(roomFile, allRooms);
+    }
+
+    // Searching rooms
+    public int searchRoom(String roomID) {
+        for (int i = 0; i < this.roomList.length; i++) {
+            if (this.roomList[i].getRoomID().equals(roomID)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // toString
@@ -111,16 +141,10 @@ public class Hotel {
             message += ", ";
         }
 
-        message += "\n\nRoom List (Jungle View): ";
+        message += "\n\nRoom List: ";
 
-        for (int i = 0; i < jungleRoomList.length; i++) {
-            message += jungleRoomList[i].getRoomID();
-            message += ", ";
-        }
-
-        message += "\n\nRoom List (Sea View): ";
-        for (int i = 0; i < seaRoomList.length; i++) {
-            message += seaRoomList[i].getRoomID();
+        for (int i = 0; i < roomList.length; i++) {
+            message += roomList[i].getRoomID();
             message += ", ";
         }
 

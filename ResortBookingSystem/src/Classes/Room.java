@@ -3,6 +3,8 @@ package Classes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,12 +14,12 @@ public class Room {
     private int numberOfBeds;
     private String roomView, roomID;
     private double price;
-    private ArrayList<Date> availableDates;
+    private ArrayList<LocalDate> availableDates;
     
-    static SimpleDateFormat setDates = new SimpleDateFormat("dd-MM-yyyy");
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // Constructors
-    public Room(String roomID, int numberOfBeds, String roomView, double price) throws ParseException {
+    public Room(String roomID, int numberOfBeds, String roomView, double price, ArrayList<LocalDate> availableDates) throws ParseException {
         if (roomView == null || roomView.isBlank() || numberOfBeds <= 0 || roomID.length() < 3 || roomID.isBlank() || roomID == null|| price < 0) {
             throw new IllegalArgumentException("Fields you provided are invalid. Please try again.");
         }
@@ -26,18 +28,7 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
         this.roomView = roomView;
         this.price = price;
-
-        this.availableDates = new ArrayList<Date>() {
-            {
-                add(setDates.parse("13-3-2022"));
-                add(setDates.parse("14-3-2022"));
-                add(setDates.parse("15-3-2022"));
-                add(setDates.parse("16-3-2022"));
-                add(setDates.parse("17-3-2022"));
-                add(setDates.parse("18-3-2022"));
-                add(setDates.parse("19-3-2022"));
-            }
-        };
+        this.availableDates = new ArrayList<>(availableDates);
     }
 
     public Room(Room source) {
@@ -68,7 +59,7 @@ public class Room {
     public String getAvailableDates() {
         String message = "";
         for (int i = 0; i < this.availableDates.size(); i++) {
-            message += (setDates.format(this.availableDates.get(i)));
+            message += (dateFormatter.format(this.availableDates.get(i)));
             message += ", ";
         }
 
@@ -95,8 +86,8 @@ public class Room {
     // Adding and removing dates
     public void addAvailableDate(String date) throws ParseException {
         for (int i = 0; i < this.availableDates.size(); i++) {
-            if (setDates.parse(date).before(this.availableDates.get(i))) {
-                this.availableDates.add(i, setDates.parse(date));
+            if (LocalDate.parse(date, dateFormatter).isBefore(this.availableDates.get(i))) {
+                this.availableDates.add(i, LocalDate.parse(date, dateFormatter));
                 break;
             }
         }
@@ -108,10 +99,18 @@ public class Room {
         }
 
         for (int i = 0; i < this.availableDates.size(); i++) {
-            if (setDates.parse(date) == this.availableDates.get(i)) {
+            if (LocalDate.parse(date, dateFormatter).isEqual(this.availableDates.get(i))) {
                 this.availableDates.remove(i);
             }
         }
+    }
+
+    // Check availability
+    public boolean checkAvailability(LocalDate checkIn) {
+        if (this.availableDates.contains(checkIn)) {
+            return true;
+        }
+        return false;
     }
 
     // toString
@@ -119,7 +118,7 @@ public class Room {
 
         String[] tmpDates = new String[this.availableDates.size()];
         for (int i = 0; i < this.availableDates.size(); i++) {
-            tmpDates[i] = setDates.format(this.availableDates.get(i));
+            tmpDates[i] = dateFormatter.format(this.availableDates.get(i));
         }
 
         return ("Room Number\t: " + this.roomID + 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import MainPage.MainPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,7 +93,11 @@ public class LoginController {
             String[] staffDetails = staff.split("; ");
             if (staffDetails[1].equals(usernameInput)) {
                 if (staffDetails[2].equals(passwordInput)) {
-                    root = FXMLLoader.load(getClass().getResource("/MainPage/MainPage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainPage/MainPage.fxml"));
+                    root = loader.load();
+                    MainPageController mainPageController = loader.getController();
+                    mainPageController.displayWelcomeMessage(staffDetails[0]);
+
                     stage =  (Stage)((Node) e.getSource()).getScene().getWindow();
                     scene = new Scene(root);
                     stage.setScene(scene);
