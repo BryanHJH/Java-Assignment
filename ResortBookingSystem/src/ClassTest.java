@@ -1,14 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import com.google.gson.Gson;
 
 import Classes.Hotel;
 import Classes.Room;
@@ -16,26 +22,48 @@ import Classes.Staff;
 
 public class ClassTest {
 
-    public static ArrayList<String> readFile(File file) throws FileNotFoundException {
-        Scanner reader = new Scanner(file);
-        ArrayList<String> contents = new ArrayList<String>();
+    public static Room[] readRoomFile(File file) throws FileNotFoundException, ParseException {
+        // Scanner reader = new Scanner(file);
+        // ArrayList<String> contents = new ArrayList<String>();
 
-        while (reader.hasNextLine()) {
-            contents.add(reader.nextLine());
-        }
-        reader.close();
+        // while (reader.hasNextLine()) {
+        //     contents.add(reader.nextLine());
+        // }
+        // reader.close();
 
-        return contents;
+        // return contents;
+
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        Room[] roomList = gson.fromJson(reader, Room[].class);
+        return roomList;
     }
 
-    public static String[] printContents(File file) throws FileNotFoundException {
+    public static Staff[] readStaffFile(File file) throws FileNotFoundException, ParseException {
+        // Scanner reader = new Scanner(file);
+        // ArrayList<String> contents = new ArrayList<String>();
+
+        // while (reader.hasNextLine()) {
+        //     contents.add(reader.nextLine());
+        // }
+        // reader.close();
+
+        // return contents;
+
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        Staff[] staffList = gson.fromJson(reader, Staff[].class);
+        return staffList;
+    }
+
+    // public static String[] printContents(File file) throws FileNotFoundException {
         
-        ArrayList<String> storage = new ArrayList<String>();
-        storage = readFile(file);
-        String joinedArray = String.join(", ", storage);
+    //     ArrayList<String> storage = new ArrayList<String>();
+    //     storage = readFile(file);
+    //     String joinedArray = String.join(",", storage);
 
-        return joinedArray.split(", ");
-    }
+    //     return joinedArray.split(",");
+    // }
 
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US);
 
@@ -90,32 +118,45 @@ public class ClassTest {
         testHotel.saveRoomData();
 
         File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
-        System.out.println(staffFile.exists());
+        Staff[] staffList = readStaffFile(staffFile);
+        for (Staff staff: staffList) {
+            System.out.println(staff);
+        }
 
-        String[] test = printContents(staffFile);
+        // String[] test = printContents(staffFile);
 
-        for (String staff: test) {
-            String[] staffDetails = staff.split("; ");
-            for (String details: staffDetails) {
-                System.out.println(details);
+        // for (String staff: test) {
+        //     String[] staffDetails = staff.split("; ");
+        //     for (String details: staffDetails) {
+        //         System.out.println(details);
+        //     }
+
+        //     System.out.println("\n");
+        // }
+        
+        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
+        // String[] roomTest = printContents(roomFile);
+        Room[] roomList = readRoomFile(roomFile);
+        for (Room room: roomList) {
+            if (room.getRoomID().equals("101")) {
+                System.out.println(room.getRoomID());
             }
-
-            System.out.println("\n");
         }
 
-        testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("110")).getRoomID(), "14-03-2022");
-        System.out.println(testHotel.getRoom(testHotel.searchRoom("110")).getAvailableDates());
-        System.out.println(testHotel.getRoom(1).getAvailableDates());
-        LocalDate startDate = LocalDate.parse("15-03-2022", dateFormatter);
-        LocalDate endDate = LocalDate.parse("19-03-2022", dateFormatter);
-
-        ArrayList<LocalDate> newDates = new ArrayList<LocalDate>();
+        // testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("110")).getRoomID(), "14-03-2022");
+        LocalDate startDate = LocalDate.parse("13-03-2022", dateFormatter);
+        LocalDate endDate = LocalDate.parse("15-03-2022", dateFormatter);
+        
+        // ArrayList<LocalDate> newDates = new ArrayList<LocalDate>();
         List<LocalDate> dates = startDate.datesUntil(endDate).collect(Collectors.toList());
-        System.out.println(dates);
+        // System.out.println(dates);
         for (LocalDate date: dates) {
-            String formattedDate = dateFormatter.format(date);
-            newDates.add(LocalDate.parse(formattedDate, dateFormatter));
+            testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("101")).getRoomID(), dateFormatter.format(date));
         }
-        System.out.println(newDates);
+        testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("101")).getRoomID(), "15-03-2022");
+
+        // System.out.println(newDates);
+        System.out.println(testHotel.getRoom(testHotel.searchRoom("101")).getAvailableDates());
+        System.out.println(testHotel.getRoom(1).getAvailableDates());
     }
 }

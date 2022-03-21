@@ -14,7 +14,7 @@
             <Font name="Caskaydia Cove Nerd Font Complete" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="91.0" layoutY="134.0" prefHeight="25.0" prefWidth="89.0" text="Username">
+      <Label layoutX="91.0" layoutY="134.0" prefHeight="25.0" prefWidth="89.0" text="Email">
          <font>
             <Font name="Caskaydia Cove Nerd Font Complete" size="19.0" />
          </font>

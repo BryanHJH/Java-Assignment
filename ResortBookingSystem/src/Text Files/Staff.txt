@@ -1,4 +1,1 @@
-John; john@resort.com; johnresort; 13-3-1990; 111111102938
-Ren; ren@resort.com; renresort; 14-4-1980; 111111101938
-Bam; bam@resort.com; bamresort; 15-5-1950; 111111103938
-Gavin; gavin@resort.com; gavinresort; 13-3-1995; 111111102838
+[{"name":"John","email":"john@resort.com","password":"johnresort","dateOfBirth":"13-3-1990","staffIC":"111111102938","age":32},{"name":"Ren","email":"ren@resort.com","password":"renresort","dateOfBirth":"14-4-1980","staffIC":"111111101938","age":42},{"name":"Bam","email":"bam@resort.com","password":"bamresort","dateOfBirth":"15-5-1950","staffIC":"111111103938","age":72},{"name":"Gavin","email":"gavin@resort.com","password":"gavinresort","dateOfBirth":"13-3-1995","staffIC":"111111102838","age":27}]

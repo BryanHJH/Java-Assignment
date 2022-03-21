@@ -1,0 +1,837 @@
+[
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "101",
+        "price": 299.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "102",
+        "price": 299.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 1,
+        "roomView": "Jungle",
+        "roomID": "103",
+        "price": 259.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "104",
+        "price": 299.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 1,
+        "roomView": "Jungle",
+        "roomID": "105",
+        "price": 259.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "106",
+        "price": 299.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Jungle",
+        "roomID": "107",
+        "price": 279.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Jungle",
+        "roomID": "108",
+        "price": 279.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "109",
+        "price": 299.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Jungle",
+        "roomID": "110",
+        "price": 279.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Sea",
+        "roomID": "201",
+        "price": 399.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Sea",
+        "roomID": "202",
+        "price": 399.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 1,
+        "roomView": "Sea",
+        "roomID": "203",
+        "price": 359.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Sea",
+        "roomID": "204",
+        "price": 399.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 1,
+        "roomView": "Sea",
+        "roomID": "205",
+        "price": 359.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Sea",
+        "roomID": "206",
+        "price": 399.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Sea",
+        "roomID": "207",
+        "price": 379.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Sea",
+        "roomID": "208",
+        "price": 379.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Sea",
+        "roomID": "209",
+        "price": 399.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 2,
+        "roomView": "Sea",
+        "roomID": "210",
+        "price": 379.99,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 13
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 14
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            }
+        ]
+    }
+]

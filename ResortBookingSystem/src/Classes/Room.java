@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 
 public class Room {
     
@@ -16,7 +17,7 @@ public class Room {
     private double price;
     private ArrayList<LocalDate> availableDates;
     
-    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US );
 
     // Constructors
     public Room(String roomID, int numberOfBeds, String roomView, double price, ArrayList<LocalDate> availableDates) throws ParseException {
@@ -85,6 +86,14 @@ public class Room {
 
     // Adding and removing dates
     public void addAvailableDate(String date) throws ParseException {
+        if (this.availableDates.size() == 0) {
+            this.availableDates.add(LocalDate.parse(date, dateFormatter));
+        } else if (this.availableDates.size() == 1) {
+            if (LocalDate.parse(date, dateFormatter).isAfter(this.availableDates.get(0))) {
+                this.availableDates.add(LocalDate.parse(date, dateFormatter));
+            }
+        }
+        
         for (int i = 0; i < this.availableDates.size(); i++) {
             if (LocalDate.parse(date, dateFormatter).isBefore(this.availableDates.get(i))) {
                 this.availableDates.add(i, LocalDate.parse(date, dateFormatter));
@@ -107,8 +116,10 @@ public class Room {
 
     // Check availability
     public boolean checkAvailability(LocalDate checkIn) {
-        if (this.availableDates.contains(checkIn)) {
-            return true;
+        for (int i = 0; i < this.availableDates.size(); i++) {
+            if (this.availableDates.get(i).isEqual(checkIn)) {
+                return true;
+            }
         }
         return false;
     }

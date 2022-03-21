@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 public class Hotel {
     private ArrayList<Staff> staffList;
@@ -27,7 +30,7 @@ public class Hotel {
     }
 
     // Setters
-    public void setJungleRoom(int index, Room newRoom) {
+    public void setRoom(int index, Room newRoom) {
         this.roomList[index] = new Room(newRoom);
     }
 
@@ -54,7 +57,6 @@ public class Hotel {
         for (int i = 0; i < this.roomList.length; i++) {
             if (this.roomList[i].getRoomID().equals(roomID)) {
                 this.roomList[i].addAvailableDate(date);
-                break;
             }
         }
     }
@@ -63,7 +65,6 @@ public class Hotel {
         for (int i = 0; i < this.roomList.length; i++) {
             if (this.roomList[i].getRoomID().equals(roomID)) {
                 this.roomList[i].removeAvailableDate(date);
-                break;
             }
         }
     }
@@ -85,11 +86,25 @@ public class Hotel {
     // }
 
     // Writing to a file
-    public void writeFile(File file, String message) throws Exception {
+    public void writeRoomFile(File file, Room[] arr) throws Exception {
+        FileWriter fwriter = new FileWriter(file);
+        // List<Room> roomArr = Arrays.asList(arr);
+        ArrayList<Room> roomArr = new ArrayList<Room>(Arrays.asList(arr));
+
+        try (BufferedWriter writer = new BufferedWriter(fwriter)) {
+            Gson gson = new Gson();
+            gson.toJson(roomArr, writer);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void writeStaffFile(File file, ArrayList<Staff> arr) throws Exception {
         FileWriter fwriter = new FileWriter(file);
 
         try (BufferedWriter writer = new BufferedWriter(fwriter)) {
-            writer.write(message);
+            Gson gson = new Gson();
+            gson.toJson(arr, writer);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -97,29 +112,15 @@ public class Hotel {
 
     // Writing the arrays to a text file
     public void saveStaffData() throws Exception {
-        String staff = "";
-        File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
-
-        for (Staff item: this.staffList) {
-            String message = item.getName() + "; " + item.getEmail() + "; " + item.getPassword() + "; " + item.getDateOfBirth() + "; " + item.getStaffIC();
-            staff += message;
-            staff += "\n";
-        }
-
-        writeFile(staffFile, staff);
+        // String staff = "";
+        File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.json");
+        writeStaffFile(staffFile, this.staffList);
     }
 
     public void saveRoomData() throws Exception {
-        String allRooms = "";
-        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.txt");
-        
-        for (Room room: this.roomList) {
-            String message = room.getRoomID() + "; " + room.getNumberOfBeds() + "; " + room.getRoomView() + "; " + room.getPrice() + "; " + room.getAvailableDates();
-            allRooms += message;
-            allRooms += "\n";
-        }
-
-        writeFile(roomFile, allRooms);
+        // String allRooms = "";
+        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
+        writeRoomFile(roomFile, this.roomList);
     }
 
     // Searching rooms

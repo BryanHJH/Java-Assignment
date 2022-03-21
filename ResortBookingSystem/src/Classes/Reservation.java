@@ -3,20 +3,28 @@ package Classes;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.Reader;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
 
 public class Reservation {
     private String roomID, custIC, custName, custPhone, custEmail;
     private int custFamily, durationOfStay;
     private LocalDate checkIn, checkOut;
-
+    private double finalPrice;
+    static File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.json");
+    static File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
 
     // Constructors
-    public Reservation(String roomID, String custIC, String custName, String custPhone, String custEmail, int custFamily, LocalDate checkIn, LocalDate checkOut) {
+    public Reservation(String roomID, String custName, String custIC, String custPhone, String custEmail, int custFamily, LocalDate checkIn, LocalDate checkOut) {
         if (roomID == null || roomID.isBlank() ||(custIC == null || custIC.isBlank() || custName == null || custName.isBlank() || custPhone == null || custPhone.isBlank() || custEmail == null || custEmail.isBlank() || custFamily < 0)) {
             throw new IllegalArgumentException("Fields contain invalid values");
         }
@@ -32,6 +40,25 @@ public class Reservation {
 
         Period duration = Period.between(this.checkIn, this.checkOut);
         this.durationOfStay = duration.getDays();
+
+        try {
+            double totalPrice = 0;
+            Room[] roomList = readRoomFile(roomFile);
+            for (Room room: roomList) {
+                if (room.getRoomID().equals(this.roomID)) {
+                    double roomPrice = room.getPrice()*durationOfStay;
+                    double roomCharges = roomPrice * 0.10;
+                    double tourismTax = 10*this.durationOfStay;
+                    totalPrice += Math.round((roomPrice + roomCharges + tourismTax)*100)/100;
+                    this.finalPrice = totalPrice;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     public Reservation(Reservation source) {
@@ -78,6 +105,10 @@ public class Reservation {
 
     public LocalDate getCheckOut() {
         return checkOut;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
     }
 
     // Setters
@@ -140,59 +171,111 @@ public class Reservation {
         this.durationOfStay = durationOfStay;
     }
 
+    public void setFinalPrice(double finalPrice) {
+        if (finalPrice < 0) {
+            throw new IllegalArgumentException("Price cannot be negative!");
+        }
+        this.finalPrice = finalPrice;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Reservation r1 = (Reservation) obj;
+
+        return (this.roomID.equals(r1.roomID) &&
+                this.custIC.equals(r1.custIC) &&
+                this.custName.equals(r1.custName) &&
+                this.custPhone.equals(r1.custPhone) &&
+                this.custEmail.equals(r1.custEmail) &&
+                this.custFamily ==  r1.custFamily &&
+                this.checkIn.isEqual(r1.checkIn) &&
+                this.checkOut.isEqual(r1.checkOut));
+
+    }
+
 
     // Methods
-    public void writeFile(File file, String message) throws Exception {
+    public void writeFile(File file, ArrayList<Reservation> reservations) throws Exception {
         FileWriter fwriter = new FileWriter(file);
+        Gson gson = new Gson();
 
         try (BufferedWriter writer = new BufferedWriter(fwriter)) {
-            writer.write(message);
+            gson.toJson(reservations, writer);
+            // writer.write(message);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static ArrayList<String> readFile(File file) throws FileNotFoundException {
-        Scanner reader = new Scanner(file);
-        ArrayList<String> contents = new ArrayList<String>();
 
-        while (reader.hasNextLine()) {
-            contents.add(reader.nextLine());
-        }
-        reader.close();
+    public static Room[] readRoomFile(File file) throws FileNotFoundException {
+        // Scanner reader = new Scanner(file);
+        // ArrayList<String> contents = new ArrayList<String>();
 
-        return contents;
+        // while (reader.hasNextLine()) {
+        //     contents.add(reader.nextLine());
+        // }
+        // reader.close();
+
+        // return contents;
+
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        Room[] roomList = gson.fromJson(reader, Room[].class);
+        return roomList;
+    }
+
+    public static Reservation[] readReservationFile(File file) throws FileNotFoundException {
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        Reservation[] reservationList = gson.fromJson(reader, Reservation[].class);
+        return reservationList;
     }
 
     public void saveReservation() throws Exception {
-        double price;
-        File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.txt");
-        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.txt");
+        Reservation[] reservationList = readReservationFile(reservationFile);
+        ArrayList<Reservation> newReservations = new ArrayList<>();
 
-        ArrayList<String> rooms = readFile(roomFile);
-        double finalPrice = 0;
-        
-        for (String room: rooms) {
-            String[] roomDetails = room.split("; ");
-            if (roomDetails[0].equals(this.roomID)) {
-                double roomPrice = Double.parseDouble(roomDetails[3])*durationOfStay;
-                double roomCharges = roomPrice * 0.10;
-                double tourismTax = 10*this.durationOfStay;
-                finalPrice += Math.round((roomPrice + roomCharges + tourismTax)*100)/100;
+        if (reservationList != null) {
+            for (Reservation reservation: reservationList) {
+                newReservations.add(reservation);
+            }
+            newReservations.add(new Reservation(this.roomID, this.custName, this.custIC, this.custPhone, this.custEmail, this.custFamily, this.checkIn, this.checkOut));
+        } else {
+            newReservations.add(new Reservation(this.roomID, this.custName, this.custIC, this.custPhone, this.custEmail, this.custFamily, this.checkIn, this.checkOut));
+        }
+        writeFile(reservationFile, newReservations);
+    }
+
+    public void removeReservation(Reservation reservation) throws Exception {
+        Reservation[] reservationList = readReservationFile(reservationFile);
+        ArrayList<Reservation> updatedReservations = new ArrayList<Reservation>(Arrays.asList(reservationList));
+        for (int i = 0; i < updatedReservations.size(); i++) {
+            if (updatedReservations.get(i).equals(reservation)) {
+                updatedReservations.remove(i);
             }
         }
+        writeFile(reservationFile, updatedReservations);
+    }
 
-        String message = (this.roomID + "; " + 
-                          this.custName + "; " + 
-                          this.custIC + "; " + 
-                          this.custPhone + "; " + 
-                          this.custEmail + "; " + 
-                          this.custFamily + "; " + 
-                          this.checkIn + "; " + 
-                          this.checkOut + "; " +
-                          this.durationOfStay + "; " + 
-                          finalPrice);
-
-        writeFile(reservationFile, message);
+    public String toString() {
+        return ("Room ID: " + this.roomID + 
+                "\nCustomer Name: " + this.custName + 
+                "\nCustomer IC: " + this.custIC + 
+                "\nCustomer Phone Number: " + this.custPhone + 
+                "\nCustomer Email: " + this.custEmail + 
+                "\nNumber of family members: " + this.custFamily + 
+                "\nCheck In: " + this.checkIn + 
+                "\nCheck Out: " + this.checkOut + 
+                "\nDuration of stay: " + this.durationOfStay);
     }
 }
