@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -19,7 +17,7 @@ public class Reservation {
     private String roomID, custIC, custName, custPhone, custEmail;
     private int custFamily, durationOfStay;
     private LocalDate checkIn, checkOut;
-    private double finalPrice;
+    private double finalPrice, roomPrice, serviceTax, tourismTax;
     static File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.json");
     static File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
 
@@ -46,10 +44,10 @@ public class Reservation {
             Room[] roomList = readRoomFile(roomFile);
             for (Room room: roomList) {
                 if (room.getRoomID().equals(this.roomID)) {
-                    double roomPrice = room.getPrice()*durationOfStay;
-                    double roomCharges = roomPrice * 0.10;
-                    double tourismTax = 10*this.durationOfStay;
-                    totalPrice += Math.round((roomPrice + roomCharges + tourismTax)*100)/100;
+                    this.roomPrice = (room.getPrice()*durationOfStay);
+                    this.serviceTax = ((this.roomPrice * 0.10));
+                    this.tourismTax = ((10*this.durationOfStay)*100);
+                    totalPrice += Math.round((this.roomPrice + this.serviceTax + this.tourismTax)*100)/100;
                     this.finalPrice = totalPrice;
                     break;
                 }
@@ -105,6 +103,18 @@ public class Reservation {
 
     public LocalDate getCheckOut() {
         return checkOut;
+    }
+
+    public double getRoomPrice() {
+        return roomPrice;
+    }
+
+    public double getServiceTax() {
+        return serviceTax;
+    }
+
+    public double getTourismTax() {
+        return tourismTax;
     }
 
     public double getFinalPrice() {
@@ -169,6 +179,10 @@ public class Reservation {
         }
 
         this.durationOfStay = durationOfStay;
+    }
+
+    public void setTourismTax(double tourismTax) {
+        this.tourismTax = tourismTax * this.durationOfStay;
     }
 
     public void setFinalPrice(double finalPrice) {

@@ -17,7 +17,7 @@ import javafx.scene.Node;
 public class ReceiptController {
     
     @FXML
-    private Label custNameLabel, custICLabel, custPhoneLabel, custEmailLabel, roomIDLabel, roomViewLabel, checkInLabel, checkOutLabel, durationOfStayLabel, finalPriceLabel;
+    private Label custNameLabel, custICLabel, custPhoneLabel, custEmailLabel, roomIDLabel, roomViewLabel, checkInLabel, checkOutLabel, durationOfStayLabel, roomPriceLabel, serviceTaxLabel, tourismTaxLabel, finalPriceLabel;
 
     @FXML
     private Button returnButton;
@@ -27,7 +27,23 @@ public class ReceiptController {
     private Parent root;
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public void displayMessage(String customerName, String customerIC, String customerPhone, String customerEmail, String roomID, String roomView, LocalDate checkInDate, LocalDate checkOutDate, int durationOfStay, double finalPrice) {
+    /**
+     * Function Name: displayMessage
+     * @param customerName
+     * @param customerIC
+     * @param customerPhone
+     * @param customerEmail
+     * @param roomID
+     * @param roomView
+     * @param checkInDate
+     * @param checkOutDate
+     * @param durationOfStay
+     * @param finalPrice
+     * 
+     * Inside the function:
+     *  1. Changes each Label to the correct field extracted from the Reservation object
+     */
+    public void displayMessage(String customerName, String customerIC, String customerPhone, String customerEmail, String roomID, String roomView, LocalDate checkInDate, LocalDate checkOutDate, int durationOfStay, double roomPrice, double serviceTax, double tourismTax, double finalPrice) {
         custNameLabel.setText(customerName);
         custICLabel.setText(customerIC);
         custPhoneLabel.setText(customerPhone);
@@ -37,9 +53,20 @@ public class ReceiptController {
         checkInLabel.setText(dateFormatter.format(checkInDate));
         checkOutLabel.setText(dateFormatter.format(checkOutDate));
         durationOfStayLabel.setText(Integer.toString(durationOfStay));
-        finalPriceLabel.setText(Double.toString(finalPrice));
+        roomPriceLabel.setText("RM" + String.format("%.2f", roomPrice));
+        serviceTaxLabel.setText("RM" + String.format("%.2f", serviceTax));
+        tourismTaxLabel.setText("RM" + String.format("%.2f", tourismTax));
+        finalPriceLabel.setText("RM" + String.format("%.2f", finalPrice));
     }
 
+    /**
+     * Function Name: returnToMainPage
+     * @param e
+     * @throws IOException
+     * 
+     * Inside the Function:
+     *  1. Returns to the Booking page
+     */
     public void returnToMainPage(ActionEvent e) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/MainPage/MainPage.fxml"));
         stage =  (Stage)((Node) e.getSource()).getScene().getWindow();

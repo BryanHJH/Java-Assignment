@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -86,20 +87,37 @@ public class Room {
 
     // Adding and removing dates
     public void addAvailableDate(String date) throws ParseException {
+
+        LocalDate newDate = LocalDate.parse(date, dateFormatter);
+
         if (this.availableDates.size() == 0) {
-            this.availableDates.add(LocalDate.parse(date, dateFormatter));
+            this.availableDates.add(newDate);
         } else if (this.availableDates.size() == 1) {
-            if (LocalDate.parse(date, dateFormatter).isAfter(this.availableDates.get(0))) {
-                this.availableDates.add(LocalDate.parse(date, dateFormatter));
+            if (newDate.isAfter(this.availableDates.get(0))) {
+                this.availableDates.add(newDate);
             }
+        } else {
+            int lastIndex = this.availableDates.size() - 1;
+            LocalDate lastDate = this.availableDates.get(lastIndex);
+            int comparisonResults = newDate.compareTo(lastDate);
+            if (comparisonResults > 0) { // Meaning newDate is after the last item in this.availableDate
+                this.availableDates.add(newDate);
+            } else if (comparisonResults == 0) {
+                this.availableDates.remove(lastIndex);
+                this.availableDates.add(newDate);
+            } else {
+                this.availableDates.add(lastIndex - 2, newDate);
+            }
+
+            this.availableDates.sort(Comparator.naturalOrder());
         }
         
-        for (int i = 0; i < this.availableDates.size(); i++) {
-            if (LocalDate.parse(date, dateFormatter).isBefore(this.availableDates.get(i))) {
-                this.availableDates.add(i, LocalDate.parse(date, dateFormatter));
-                break;
-            }
-        }
+        // for (int i = 0; i < this.availableDates.size(); i++) {
+        //     if (newDate.isBefore(this.availableDates.get(i))) {
+        //         this.availableDates.add(i, newDate);
+        //         break;
+        //     }
+        // }
     }
 
     public void removeAvailableDate(String date) throws ParseException {
