@@ -46,7 +46,7 @@ public class Reservation {
                 if (room.getRoomID().equals(this.roomID)) {
                     this.roomPrice = (room.getPrice()*durationOfStay);
                     this.serviceTax = ((this.roomPrice * 0.10));
-                    this.tourismTax = ((10*this.durationOfStay)*100);
+                    this.tourismTax = ((10*this.durationOfStay));
                     totalPrice += Math.round((this.roomPrice + this.serviceTax + this.tourismTax)*100)/100;
                     this.finalPrice = totalPrice;
                     break;
