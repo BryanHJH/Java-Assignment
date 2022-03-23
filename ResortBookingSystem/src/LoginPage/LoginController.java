@@ -46,40 +46,40 @@ public class LoginController {
     private Parent root;
     File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.json");
 
-    // Reading contents of a file and saving it into an ArrayList
-
+    /**
+     * Function Name: readStaffFile <p>
+     * Inside the function: <p>
+     *  1. Create a Gson object <p>
+     *  2. Create a FileReader object <p>
+     *  3. Read the contents of the Staff file and save it as a Staff array <p>
+     *  4. Return the Staff Array <p>
+     * 
+     * @param file
+     * @return Staff[]
+     * @throws FileNotFoundException
+     * 
+     */
     public static Staff[] readStaffFile(File file) throws FileNotFoundException {
-        // Scanner reader = new Scanner(file);
-        // ArrayList<String> contents = new ArrayList<String>();
-
-        // while (reader.hasNextLine()) {
-        //     contents.add(reader.nextLine());
-        // }
-        // reader.close();
-
-        // return contents;
-
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
         Staff[] staffList = gson.fromJson(reader, Staff[].class);
         return staffList;
     }
 
-    // Button events -- Login
     /**
-     * Function name: login
+     * Function name: login <p>
+     * Inside the function:  <p>
+     *  1. Get the text stored in the username and password fields <p>
+     *  2. Get the staff list from the Staff.txt file <p>
+     *  3. Loop through each staff and check if their username matches the username provided by the user <p>
+     *  4. If username matches, checks the password using the same method. <p>
+     *  5. If both username and password matches, returns true <p>
+     *  6. If username matches but not password and vice versa, sets one of the label to notify the user that one of the fields are wrong. <p>
+     *  7. If none of the username matches, sets one of the label to "Staff does not exists" message <p>
      * 
      * @param e
      * @return boolean -- true if login successful otherwise false
      * 
-     * Inside the function: 
-     *  1. Get the text stored in the username and password fields
-     *  2. Get the staff list from the Staff.txt file
-     *  3. Loop through each staff and check if their username matches the username provided by the user
-     *  4. If username matches, checks the password using the same method.
-     *  5. If both username and password matches, returns true
-     *  6. If username matches but not password and vice versa, sets one of the label to notify the user that one of the fields are wrong.
-     *  7. If none of the username matches, sets one of the label to "Staff does not exists" message
      */
     public void login(ActionEvent e) throws Exception {
         String usernameInput = username.getText();
@@ -115,6 +115,15 @@ public class LoginController {
         }
     }
 
+    /**
+     * Function Name: forgotPassword <p>
+     * Inside the function: <p>
+     *  1. Switches window to the Forgot Password window stored in the FXML file <p>
+     * 
+     * @param e
+     * @throws IOException
+     * 
+     */
     public void forgotPassword(ActionEvent e) throws IOException {
         // Switching to the Forgot Password page
         Parent root = FXMLLoader.load(getClass().getResource("ForgotPassword.fxml"));
@@ -124,6 +133,18 @@ public class LoginController {
         stage.show();
     }
 
+    /**
+     * Function Name: requestPassword <p>
+     * Inside the function: <p>
+     *  1. Read the contents of the Staff file and store it as a Staff Array <p>
+     *  2. If the staff email that is provided in the TextField exists inside the Array <p>
+     *  3. Set the label to green stating that the request has been sent <p>
+     *  4. If the staff email does not exist, notify the user that a request has been sent to the admin <p>
+     * 
+     * @param e
+     * @throws IOException
+     * 
+     */
     public void requestPassword(ActionEvent e) throws IOException {
         String email = forgotEmail.getText();
         // System.out.println(email);

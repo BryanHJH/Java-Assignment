@@ -106,17 +106,17 @@ public class Staff {
 
     // Methods
     /**
-     * Function name: toAge
+     * Function name: toAge <p>
+     * Inside the function:  <p>
+     *  1. Changes the parameter into date object <p>
+     *  2. Get the year from the date object <p>
+     *  3. Get the current year <p>
+     *  4. Subtract the current year and birth year to get the age <p>
      * 
      * @param birthDate
      * @return
      * @throws ParseException
      * 
-     * Inside the function: 
-     *  1. Changes the parameter into date object
-     *  2. Get the year from the date object
-     *  3. Get the current year
-     *  4. Subtract the current year and birth year to get the age
      */
     public int toAge(String birthDate) throws ParseException {
         SimpleDateFormat converter = new SimpleDateFormat("dd-MM-yyyy");

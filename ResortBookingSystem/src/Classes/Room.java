@@ -86,6 +86,21 @@ public class Room {
     }
 
     // Adding and removing dates
+    /**
+     * Function Name: addAvailableDate
+     * <p>
+     * Inside the function: <p>
+     *  1. Convert the parameter into o LocalDate object <p><p>
+     *  2. Loop through the availableDates ArrayList of this Room object<p>
+     *  3. If the size of the ArrayList is 0, just add the date into the ArrayList<p>
+     *  4. If the size of the ArrayList is 1, add it to the end of the ArrayList<p>
+     *  5. Else, get the last date in the ArrayList, if the new LocalDate object from step 1 is before the last date, add it to one index before the last date, else, add it to the end of the ArrayList<p>
+     *  6. Sort the ArrayList to ascending order
+     * 
+     * @param date
+     * @throws ParseException
+     * 
+     */
     public void addAvailableDate(String date) throws ParseException {
 
         LocalDate newDate = LocalDate.parse(date, dateFormatter);
@@ -111,15 +126,18 @@ public class Room {
 
             this.availableDates.sort(Comparator.naturalOrder());
         }
-        
-        // for (int i = 0; i < this.availableDates.size(); i++) {
-        //     if (newDate.isBefore(this.availableDates.get(i))) {
-        //         this.availableDates.add(i, newDate);
-        //         break;
-        //     }
-        // }
     }
 
+    /**
+     * Function Name: removeAvailableDate
+     * Inside the function:<p>
+     *  1. If the availableDates ArrayList is 0, throw an error<p>
+     *  2. Else, loop through the availableDates ArrayList, if the current LocalDate matches the one in the parameter, remove the element<p>
+     * 
+     * @param date
+     * @throws ParseException
+     * 
+     */
     public void removeAvailableDate(String date) throws ParseException {
         if (this.availableDates.size() == 0) {
             throw new IllegalStateException("You cannot remove anything anymore!");
@@ -133,6 +151,15 @@ public class Room {
     }
 
     // Check availability
+    /**
+     * Function Name: checkAvailability<p>
+     * Inside the function:<p>
+     *  1. Loop through the current Room object's availableDate ArrayList<p>
+     *  2. If the current LocalDate object matches the parameter, return true, else return false<p>
+     * @param checkIn
+     * @return boolean value
+     * 
+     */
     public boolean checkAvailability(LocalDate checkIn) {
         for (int i = 0; i < this.availableDates.size(); i++) {
             if (this.availableDates.get(i).isEqual(checkIn)) {

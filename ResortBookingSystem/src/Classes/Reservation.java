@@ -44,9 +44,9 @@ public class Reservation {
             Room[] roomList = readRoomFile(roomFile);
             for (Room room: roomList) {
                 if (room.getRoomID().equals(this.roomID)) {
-                    this.roomPrice = (room.getPrice()*durationOfStay);
-                    this.serviceTax = ((this.roomPrice * 0.10));
-                    this.tourismTax = ((10*this.durationOfStay));
+                    this.roomPrice = Math.round(room.getPrice()*durationOfStay);
+                    this.serviceTax = Math.round((this.roomPrice * 0.10));
+                    this.tourismTax = Math.round((10*this.durationOfStay));
                     totalPrice += Math.round((this.roomPrice + this.serviceTax + this.tourismTax)*100)/100;
                     this.finalPrice = totalPrice;
                     break;
@@ -218,6 +218,19 @@ public class Reservation {
 
 
     // Methods
+    /**
+     * Function name: writeFile<p>
+     * Inside the function:<p>
+     *  1. Creates a file writer with the File parameter<p>
+     *  2. Creates a gson object<p>
+     *  3. Creates a BufferedWriter and writes into the File object passed in as argument<p>
+     *  4. Contents of the file is stored in json format<p>
+     * 
+     * @param file
+     * @param reservations
+     * @throws Exception
+     * 
+     */
     public void writeFile(File file, ArrayList<Reservation> reservations) throws Exception {
         FileWriter fwriter = new FileWriter(file);
         Gson gson = new Gson();
@@ -231,23 +244,37 @@ public class Reservation {
     }
 
 
+    /**
+     * Function Name: readRoomFile<p>
+     * Inside teh function:<p>
+     *  1. Creates a Gson object<p>
+     *  2. Creates a Reader object<p>
+     *  3. Reads the json contents from the file passed in as argument<p>
+     *  4. Stores the json contents as an Array with matching type<p>
+     *  5. returns the Array<p>
+     * 
+     * @param file
+     * @return Room[]
+     * @throws FileNotFoundException
+     * 
+     */
     public static Room[] readRoomFile(File file) throws FileNotFoundException {
-        // Scanner reader = new Scanner(file);
-        // ArrayList<String> contents = new ArrayList<String>();
-
-        // while (reader.hasNextLine()) {
-        //     contents.add(reader.nextLine());
-        // }
-        // reader.close();
-
-        // return contents;
-
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
         Room[] roomList = gson.fromJson(reader, Room[].class);
         return roomList;
     }
 
+    /**
+     * Function Name: readReservationFile<p>
+     * Inside the function:<p>
+     *  1. Steps are similar to readRoomFile, with the return type being different<p>
+     * 
+     * @param file
+     * @return Reservation[]
+     * @throws FileNotFoundException
+     * 
+     */
     public static Reservation[] readReservationFile(File file) throws FileNotFoundException {
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
@@ -255,6 +282,18 @@ public class Reservation {
         return reservationList;
     }
 
+    /**
+     * Function Name: saveReservation<p>
+     * Inside the function:<p>
+     *  1. Create a Reservation Array and initiate it<p>
+     *  2. Create a new empty Reservation ArrayList<p>
+     *  3. if the Reservation Array is not empty, add all the reservation objects in the array to the ArrayList<p>
+     *  4. After adding all the existing reservation (from the Array), add the newest Reservation record into the ArrayList<p>
+     *  5. Use the writeFile function to write the newest ArrayList into the correct file<p>
+     * 
+     * @throws Exception
+     * 
+     */
     public void saveReservation() throws Exception {
         Reservation[] reservationList = readReservationFile(reservationFile);
         ArrayList<Reservation> newReservations = new ArrayList<>();
@@ -270,6 +309,18 @@ public class Reservation {
         writeFile(reservationFile, newReservations);
     }
 
+    /**
+     * Function name: removeReservation<p>
+     * Inside the function<p>
+     *  1. Create a new Reservation Array with all existing records<p>
+     *  2. Create an ArrayList from the Reservation Array<p>
+     *  3. If any of the reservation objects in the ArrayList matches the one passed in as an argument, remove it<p>
+     *  4. Save the newly edited ArrayList into the Reservations.json file<p>
+     * 
+     * @param reservation
+     * @throws Exception
+     * 
+     */
     public void removeReservation(Reservation reservation) throws Exception {
         Reservation[] reservationList = readReservationFile(reservationFile);
         ArrayList<Reservation> updatedReservations = new ArrayList<Reservation>(Arrays.asList(reservationList));

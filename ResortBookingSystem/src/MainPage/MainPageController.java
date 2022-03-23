@@ -9,10 +9,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -23,8 +21,6 @@ import Classes.Hotel;
 import Classes.Reservation;
 import Classes.Room;
 import ReceiptPage.ReceiptController;
-import javafx.collections.FXCollections;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,7 +30,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -94,16 +89,17 @@ public class MainPageController implements Initializable {
     String[] roomIDs = new String[20];
 
     /**
-     * Function Name: readRoomFile
+     * Function Name: readRoomFile<p>
+     * Inside the function:<p>
+     *  1. Creates a GSON object<p>
+     *  2. Creates a FileReader object<p>
+     *  3. Reads the contents from file and store it as a Room array<p>
+     *  4. return the room array<p>
+     * 
      * @param file
      * @return Room[] roomList
      * @throws FileNotFoundException
      * 
-     * Inside the function:
-     *  1. Creates a GSON object
-     *  2. Creates a FileReader object
-     *  3. Reads the contents from file and store it as a Room array
-     *  4. return the room array
      */
     public static Room[] readRoomFile(File file) throws FileNotFoundException {
 
@@ -114,14 +110,15 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function Name: readReservationFile
+     * Function Name: readReservationFile <p>
+     * Inside the function: <p>
+     *  1. Similar to previous function <p>
+     *  2. Difference is that it returns a Reservation[] array instead <p>
+     * 
      * @param file
      * @return Reservation[] reservationList
      * @throws FileNotFoundException
      * 
-     * Inside the function:
-     *  1. Similar to previous function
-     *  2. Difference is that it returns a Reservation[] array instead
      */
     public static Reservation[] readReservationFile(File file) throws FileNotFoundException {
         Gson gson = new Gson();
@@ -131,15 +128,16 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function name: Restrict the dates that can be chosen in the DatePicker
+     * Function name: Restrict the dates that can be chosen in the DatePicker <p>
+     * Inside the function: <p>
+     *  1. Read the room file <p>
+     *  2. Get the room id text field text value <p>
+     *  3. Find the room and get its available dates <p>
+     *  4. set the min date as the first item in the AvailableDates ArrayList <p>
+     *  5. set the max date as the last item in the AvailableDates ArrayList <p>
      * 
-     * Inside the function:
-     *  1. Read the room file
-     *  2. Get the room id text field text value
-     *  3. Find the room and get its available dates
-     *  4. set the min date as the first item in the AvailableDates arraylist
-     *  5. set the max date as the last item in the AvailableDates arraylist
      * @throws FileNotFoundException
+     * 
      */
     public void restrictDates() throws FileNotFoundException {
         
@@ -489,6 +487,15 @@ public class MainPageController implements Initializable {
     }
 
     // Rebuild combo box
+    /**
+     * Function Name: buildComboBox <p>
+     * 
+     * Inside the function: <p>
+     *  1. Create a Room Array <p>
+     *  2. Loop through the room array <p>
+     *  3. Run the checkAvailability function for every Room object looped through <p>
+     *  4. If the checkAvailability function returns true, add it to the ComboBox <p>
+     */
     public void buildComboBox() {
         try {
             Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
@@ -513,28 +520,31 @@ public class MainPageController implements Initializable {
 
     /**
      * Function Name: displayWelcomeMessage
+     * <p>
+     * Inside the function: <p>
+     *  1. Sets the header of the Window to a welcome message with the user's name <p>
+     * 
      * @param username
      * 
-     * Inside the function:
-     *  1. Sets the header of the Window to a welcome message with the user's name
      */
     public void displayWelcomeMessage(String username) {
         welcomeMessage.setText("Welcome, " + username + "!");
     }
 
     /**
-     * Function Name: addNewReservation
+     * Function Name: addNewReservation <p>
+     * Inside teh function: <p>
+     *  1. Get all the values from the text fields <p>
+     *  2. Check whether the fields are provided the correct input, if not display warning text <p>
+     *  3. If all fields are correct, start by storing all existing reservations in to an ArrayList <p>
+     *  4. Then store the newest reservation into the ArrayList <p>
+     *  5. After that, remove the dates between Check In and Check Out from the specific Room object <p>
+     *  6. Save the edited Room to the Rooms.json file <p>
+     *  7. Update the TableView <p>
+     *  8. Clear all fields <p>
+     * 
      * @param e
      * 
-     * Inside teh function:
-     *  1. Get all the values from the text fields
-     *  2. Check whether the fields are provided the correct input, if not display warning text
-     *  3. If all fields are correct, start by storing all existing reservations in to an ArrayList
-     *  4. Then store the newest reservation into the ArrayList
-     *  5. After that, remove the dates between Check In and Check Out from the specific Room object
-     *  6. Save the edited Room to the Rooms.json file
-     *  7. Update the TableView
-     *  8. Clear all fields
      */
     public void addNewReservation(ActionEvent e) {
         // Getting the customer information
@@ -554,7 +564,7 @@ public class MainPageController implements Initializable {
         Matcher matcher = pattern.matcher(customerEmail);
         
         // Displays warning message if any of the fields are wrong or blank
-        if (customerName == null || customerName.isBlank() || customerIC == null || customerIC.isBlank() || customerPhone == null || customerPhone.isBlank() ||customerEmail == null || customerEmail.isBlank() ||roomID == null || roomID.isBlank() || roomIDCombo.getSelectionModel().isEmpty() ||noFamilyMembers < 0 || noFamilyTextField.getText().trim().isEmpty() ||checkInDate == null || checkOutDate == null) {
+        if (customerName == null || customerName.isBlank() || customerIC == null || customerIC.isBlank() || customerPhone == null || customerPhone.isBlank() ||customerEmail == null || customerEmail.isBlank() ||roomID == null || roomID.isBlank() || roomIDCombo.getSelectionModel().isEmpty() || noFamilyTextField.getText().trim().isBlank() || noFamilyMembers < 0 ||checkInDate == null || checkOutDate == null) {
             warningLabel.setTextFill(Color.RED);
             warningLabel.setText("Fields cannot be empty!");
         } else if (!matcher.matches()) {
@@ -606,18 +616,17 @@ public class MainPageController implements Initializable {
             // Clear all fields except the Check In Date
             clearBookingFields(e);
         }
-
-
     }
 
     /**
-     * Function Name: clearBookingFields
+     * Function Name: clearBookingFields <p>
+     * Inside the Function: <p>
+     *  1. Clear all fields <p>
+     *  2. Set the Check In Datepicker to 13/3/2022 <p>
+     *  3. Rebuild the Room ID Combo Box to match the edited Rooms.json <p>
+     * 
      * @param e
      * 
-     * Inside the Function:
-     *  1. Clear all fields
-     *  2. Set the Check In Datepicker to 13/3/2022
-     *  3. Rebuild the Room ID Combo Box to match the edited Rooms.json
      */
     public void clearBookingFields(ActionEvent e) {
         custNameTextField.clear();
@@ -632,21 +641,21 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function Name; removeReservation
+     * Function Name; removeReservation <p>
+     * Inside the function: <p>
+     *  1. Get the selected row from the TableView (x) <p>
+     *  2. Get the roomID and custName values from the selected row (x) <p>
+     *  3. Find the record of the combination of the roomID and customer name in Reservations.json (x) <p>
+     *  4. Get the Check In and Check Out dates <p>
+     *  5. Create a List of all the dates between the Check In and Check Out dates <p>
+     *  6. Add the dates of the List back into the correct Room (use searchRoom function) <p>
+     *  7. Remove the record from Reservations.json <p>
+     *  8. Remove the record from TableView object <p>
+     * 
      * @param e
      * 
-     * Inside the function:
-     *  1. Get the selected row from the TableView (x)
-     *  2. Get the roomID and custName values from the selected row (x)
-     *  3. Find the record of the combination of the roomID and customer name in Reservations.json (x)
-     *  4. Get the Check In and Check Out dates
-     *  5. Create a List of all the dates between the Check In and Check Out dates
-     *  6. Add the dates of the List back into the correct Room (use searchRoom function)
-     *  7. Remove the record from Reservations.json
-     *  8. Remove the record from TableView object
      */
     public void removeReservation(ActionEvent e) {
-        
         File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.json");
         File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
         
@@ -702,22 +711,22 @@ public class MainPageController implements Initializable {
             reservationTable.getItems().remove(row);
             reservationTable.getSelectionModel().clearSelection();
         }
-
     }
     
 
     /**
-     * Function Name: search
+     * Function Name: search <p>
+     * Inside the function: <p>
+     *  1. First get an array of reservations. <p>
+     *  2. Get the value in the searchTextField <p>
+     *  3. Loop through the reservations array. <p>
+     *  4. If the value is the same as the reservation's customer name or email <p>
+     *  5. Remove all other reservations in the TableView, leaving only the one that matches <p>
+     *  6. If none of them matches, just leave the TableView as it is.  <p>
+     * 
      * @param event
      * @throws FileNotFoundException
      * 
-     * Inside the function:
-     *  1. First get an array of reservations.
-     *  2. Get the value in the searchTextField
-     *  3. Loop through the reservations array.
-     *  4. If the value is the same as the reservation's customer name or email
-     *  5. Remove all other reservations in the TableView, leaving only the one that matches
-     *  6. If none of them matches, just leave the TableView as it is. 
      */
     public void search(ActionEvent event) throws FileNotFoundException {
 
@@ -745,15 +754,16 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function Name: clearSearch
+     * Function Name: clearSearch <p>
+     * Inside the function: <p>
+     *  1. Clear the text field <p>
+     *  2. Get an array of the reservation records <p>
+     *  3. If the reservation array is not null, then remove the current filtered list <p>
+     *  4. Add back all the records in the array to the TableView <p>
+     * 
      * @param event
      * @throws FileNotFoundException
      * 
-     * Inside the function:
-     *  1. Clear the text field
-     *  2. Get an array of the reservation records
-     *  3. If the reservation array is not null, then remove the current filtered list
-     *  4. Add back all the records in the array to the TableView
      */
     public void clearSearch(ActionEvent event) throws FileNotFoundException {
         searchTextField.clear();
@@ -775,17 +785,17 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function Name: printReceipt
-     * @param e
+     * Function Name: printReceipt <p>
+     * Inside the function: <p>
+     *  1. Get the selected row <p>
+     *  2. Get the roomID and custName <p>
+     *  3. Loop through the Reservations.json (use GSON fromJSON method) <p>
+     *  4. If roomID and custName matches the reservation record, save it to a temporary Reservation object <p>
+     *  5. Pop up a new Scene (x) <p>
+     *  6. Change the Labels of the new Scene to the correct ones in the temporary Reservation object <p>
+     *  7. Create a back button to go back to the TableView scene.  <p>
      * 
-     * Inside the function:
-     *  1. Get the selected row
-     *  2. Get the roomID and custName
-     *  3. Loop through the Reservations.json (use GSON fromJSON method)
-     *  4. If roomID and custName matches the reservation record, save it to a temporary Reservation object
-     *  5. Pop up a new Scene (x)
-     *  6. Change the Labels of the new Scene to the correct ones in the temporary Reservation object
-     *  7. Create a back button to go back to the TableView scene. 
+     * @param e
      * @throws IOException
      */
     public void printReceipt(ActionEvent e) throws IOException {
@@ -814,12 +824,13 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * Function Name: Logout
+     * Function Name: Logout <p>
+     * Inside the function: <p>
+     *  1. Brings the user back to the login screen <p>
+     * 
      * @param e
      * @throws IOException
      * 
-     * Inside the function:
-     *  1. Brings the user back to the login screen
      */
     public void logout(ActionEvent e) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/LoginPage/Login.fxml"));

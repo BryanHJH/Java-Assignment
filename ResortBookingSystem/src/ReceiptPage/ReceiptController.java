@@ -29,6 +29,9 @@ public class ReceiptController {
 
     /**
      * Function Name: displayMessage
+     * <p>
+     * Changes each Label to the correct field extracted from the Reservation object <p>
+     *
      * @param customerName
      * @param customerIC
      * @param customerPhone
@@ -40,8 +43,6 @@ public class ReceiptController {
      * @param durationOfStay
      * @param finalPrice
      * 
-     * Inside the function:
-     *  1. Changes each Label to the correct field extracted from the Reservation object
      */
     public void displayMessage(String customerName, String customerIC, String customerPhone, String customerEmail, String roomID, String roomView, LocalDate checkInDate, LocalDate checkOutDate, int durationOfStay, double roomPrice, double serviceTax, double tourismTax, double finalPrice) {
         custNameLabel.setText(customerName);
@@ -61,11 +62,12 @@ public class ReceiptController {
 
     /**
      * Function Name: returnToMainPage
+     * <p>
+     * Returns to the Booking page <p>
+     *
      * @param e
      * @throws IOException
      * 
-     * Inside the Function:
-     *  1. Returns to the Booking page
      */
     public void returnToMainPage(ActionEvent e) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/MainPage/MainPage.fxml"));
