@@ -151,8 +151,7 @@ public class MainPageController implements Initializable {
         
         
         LocalDate minDate = checkInDatePicker.getValue().plusDays(1);
-        // TODO: If booking format change, the maxDate needs to change to "checkInDatePicker.getValue().plusDays(6)"
-        LocalDate maxDate = LocalDate.of(2022, 3, 19);
+        LocalDate maxDate = checkInDatePicker.getValue().plusDays(6);
         checkOutDatePicker.setDayCellFactory(d ->
             new DateCell() {
                 @Override public void updateItem(LocalDate item, boolean empty) {
@@ -427,33 +426,31 @@ public class MainPageController implements Initializable {
         }
 
         // Restricting the date to 13/3/2022 to 19/3/2022 only
-        // TODO: If booking format changes, this needs to be removed
-        LocalDate minDate = LocalDate.of(2022, 3, 13);
-        LocalDate maxDate = LocalDate.of(2022, 3, 19);
-        checkInDatePicker.setDayCellFactory(d ->
-            new DateCell() {
-                @Override public void updateItem(LocalDate item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
-                }});
+        // LocalDate minDate = LocalDate.of(2022, 3, 13);
+        // LocalDate maxDate = LocalDate.of(2022, 3, 19);
+        // checkInDatePicker.setDayCellFactory(d ->
+        //     new DateCell() {
+        //         @Override public void updateItem(LocalDate item, boolean empty) {
+        //             super.updateItem(item, empty);
+        //             setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+        //         }});
         
-        checkOutDatePicker.setDayCellFactory(d ->
-            new DateCell() {
-                @Override public void updateItem(LocalDate item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
-                }});
+        // checkOutDatePicker.setDayCellFactory(d ->
+        //     new DateCell() {
+        //         @Override public void updateItem(LocalDate item, boolean empty) {
+        //             super.updateItem(item, empty);
+        //             setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+        //         }});
 
         // Building the initial combo box by setting the default date to 13/3/2022, can be changed to today()
-        checkInDatePicker.setValue(LocalDate.of(2022, 3, 13));
+        checkInDatePicker.setValue(LocalDate.now());
         
         try {
             Room[] roomList = readRoomFile(roomFile);
             int index = 0;
             // Ensures only rooms that can be booked are shown
-            // TODO: Change the if condition because if booking format changes, the condition is opposite
             for (Room room: roomList) {
-                if (room.checkAvailability(checkInDatePicker.getValue())) {
+                if (!room.checkAvailability(checkInDatePicker.getValue())) {
                     roomIDs[index] = room.getRoomID();
                 }
                 index++;
@@ -489,9 +486,8 @@ public class MainPageController implements Initializable {
             Room[] roomList = readRoomFile(roomFile);
             int index = 0;
             // Making sure only rooms that can be booked are shown     
-            // TODO: Change if condition because if booking format is changed, the checkAvailability is opposite
             for (Room room: roomList) {
-                if (room.checkAvailability(checkInDatePicker.getValue())) {
+                if (!room.checkAvailability(checkInDatePicker.getValue())) {
                     roomIDs[index] = room.getRoomID();
                 } else {
                     roomIDs[index] = "Room not available";
@@ -579,16 +575,15 @@ public class MainPageController implements Initializable {
     
                 List<LocalDate> dates = checkInDate.datesUntil(checkOutDate).collect(Collectors.toList());
                 // Removing the dates from the Room object
-                // TODO: If the booking format is changed, this will need to be changed to addDate
                 try {
                     // Removing the dates between the check in date and check out date (exclusive)
                     for (LocalDate date: dates) {
                         String formattedDate = dateFormatter.format(date);
                         // LocalDate newDate = LocalDate.parse(formattedDate, dateFormatter);
-                        tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), formattedDate);
+                        tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), formattedDate);
                     }
                     // Remove the check out date
-                    tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), dateFormatter.format(checkOutDate));
+                    tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), dateFormatter.format(checkOutDate));
                     // Saving the new available dates
                     tmpHotel.saveRoomData();
                 } catch (Exception e1) {
@@ -624,8 +619,7 @@ public class MainPageController implements Initializable {
         noFamilyTextField.clear();
         custPhoneTextField.clear();
         custEmailTextField.clear();
-        // TODO: if the booking format is changed, this will need to be changed to today's date
-        checkInDatePicker.setValue(LocalDate.of(2022, 3, 13));
+        checkInDatePicker.setValue(LocalDate.now());
         checkOutDatePicker.setValue(null);
         roomIDCombo.setValue(null);
         buildComboBox();
@@ -677,11 +671,10 @@ public class MainPageController implements Initializable {
                 for (LocalDate date: dates) {
                     String formattedDate = dateFormatter.format(date);
                     // LocalDate newDate = LocalDate.parse(formattedDate, dateFormatter);
-                    tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), formattedDate);
+                    tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), formattedDate);
                 }
                 // add the check out date
-                // TODO: This will need to change to removeDate if the booking format is changed
-                tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), dateFormatter.format(reservationCheckOut));
+                tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), dateFormatter.format(reservationCheckOut));
                 // Saving the new available dates
                 tmpHotel.saveRoomData();
             } catch (Exception e1) {

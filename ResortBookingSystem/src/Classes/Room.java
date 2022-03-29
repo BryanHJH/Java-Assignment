@@ -19,8 +19,7 @@ public class Room {
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US );
 
     // Constructors
-    // TODO: If changes need to be made to the date, remove the date parameter in the constructor
-    public Room(String roomID, int numberOfBeds, String roomView, double price, ArrayList<LocalDate> availableDates) throws ParseException {
+    public Room(String roomID, int numberOfBeds, String roomView, double price) throws ParseException {
         if (roomView == null || roomView.isBlank() || numberOfBeds <= 0 || roomID.length() < 3 || roomID.isBlank() || roomID == null|| price < 0) {
             throw new IllegalArgumentException("Fields you provided are invalid. Please try again.");
         }
@@ -29,7 +28,7 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
         this.roomView = roomView;
         this.price = price;
-        this.availableDates = new ArrayList<>(availableDates);
+        this.availableDates = new ArrayList<>();
     }
 
     public Room(Room source) {
@@ -85,8 +84,6 @@ public class Room {
     }
 
     // Adding and removing dates
-    // TODO: If booking format is changed, the add date will become add booking into the ArrayList, meaning that day is already booked
-    // TODO: If booking format is changed, the remove date will mean that the booking on that particular date is removed, meaning the date that is being removed is free again
     /**
      * Function Name: addAvailableDate
      * <p>
@@ -118,14 +115,14 @@ public class Room {
             int comparisonResults = newDate.compareTo(lastDate);
             if (comparisonResults > 0) { // Meaning newDate is after the last item in this.availableDate
                 this.availableDates.add(newDate);
-            } else if (comparisonResults == 0) {
+            } else if (comparisonResults == 0) { // Meaning newDate is the same as the current date and replaces the one in the ArrayList
                 this.availableDates.remove(lastIndex);
                 this.availableDates.add(newDate);
-            } else {
+            } else { // Meaning newDate is before the last index and is now being placed as the second last item in the ArrayList
                 this.availableDates.add(lastIndex - 2, newDate);
             }
 
-            this.availableDates.sort(Comparator.naturalOrder());
+            this.availableDates.sort(Comparator.naturalOrder()); // Sorts the entire ArrayList in ascending order
         }
     }
 
@@ -152,7 +149,6 @@ public class Room {
     }
 
     // Check availability
-    // TODO: If the booking format is changed, the checkAvailability will return true if booked and false if the room is free
     /**
      * Function Name: checkAvailability<p>
      * Inside the function:<p>
@@ -165,10 +161,10 @@ public class Room {
     public boolean checkAvailability(LocalDate checkIn) {
         for (int i = 0; i < this.availableDates.size(); i++) {
             if (this.availableDates.get(i).isEqual(checkIn)) {
-                return true;
+                return true; // Means the room is already booked
             }
         }
-        return false;
+        return false; // Means the room is not booked yet
     }
 
     // toString
