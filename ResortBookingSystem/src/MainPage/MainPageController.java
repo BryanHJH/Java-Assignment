@@ -451,6 +451,7 @@ public class MainPageController implements Initializable {
             Room[] roomList = readRoomFile(roomFile);
             int index = 0;
             // Ensures only rooms that can be booked are shown
+            // TODO: Change the if condition because if booking format changes, the condition is opposite
             for (Room room: roomList) {
                 if (room.checkAvailability(checkInDatePicker.getValue())) {
                     roomIDs[index] = room.getRoomID();
@@ -487,7 +488,8 @@ public class MainPageController implements Initializable {
         try {
             Room[] roomList = readRoomFile(roomFile);
             int index = 0;
-            // Making sure only rooms that can be booked are shown            
+            // Making sure only rooms that can be booked are shown     
+            // TODO: Change if condition because if booking format is changed, the checkAvailability is opposite
             for (Room room: roomList) {
                 if (room.checkAvailability(checkInDatePicker.getValue())) {
                     roomIDs[index] = room.getRoomID();
@@ -576,7 +578,8 @@ public class MainPageController implements Initializable {
                 // Getting the list of dates that are booked
     
                 List<LocalDate> dates = checkInDate.datesUntil(checkOutDate).collect(Collectors.toList());
-                // Removing the dates from the data store (text file)
+                // Removing the dates from the Room object
+                // TODO: If the booking format is changed, this will need to be changed to addDate
                 try {
                     // Removing the dates between the check in date and check out date (exclusive)
                     for (LocalDate date: dates) {
@@ -621,6 +624,7 @@ public class MainPageController implements Initializable {
         noFamilyTextField.clear();
         custPhoneTextField.clear();
         custEmailTextField.clear();
+        // TODO: if the booking format is changed, this will need to be changed to today's date
         checkInDatePicker.setValue(LocalDate.of(2022, 3, 13));
         checkOutDatePicker.setValue(null);
         roomIDCombo.setValue(null);
@@ -669,12 +673,14 @@ public class MainPageController implements Initializable {
             List<LocalDate> dates = reservationCheckIn.datesUntil(reservationCheckOut).collect(Collectors.toList());
             try {
                 // Adding the dates between the check in date and check out date (exclusive)
+                // If booking format changes, this will need to use removeDate function instead
                 for (LocalDate date: dates) {
                     String formattedDate = dateFormatter.format(date);
                     // LocalDate newDate = LocalDate.parse(formattedDate, dateFormatter);
                     tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), formattedDate);
                 }
                 // add the check out date
+                // TODO: This will need to change to removeDate if the booking format is changed
                 tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), dateFormatter.format(reservationCheckOut));
                 // Saving the new available dates
                 tmpHotel.saveRoomData();
@@ -683,7 +689,6 @@ public class MainPageController implements Initializable {
             }
             
             updatedReservations.get(0).removeReservation(selectedReservation); // Updating the file with the newest reservations
-            // System.out.println(updatedReservations);
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());

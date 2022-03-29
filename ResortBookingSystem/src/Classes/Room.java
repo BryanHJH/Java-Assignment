@@ -152,7 +152,7 @@ public class Room {
     }
 
     // Check availability
-    // TODO: If the booking format is changed, the checkAvailability will need to return false (meaning booked) if the date exist in the ArrayList instead
+    // TODO: If the booking format is changed, the checkAvailability will return true if booked and false if the room is free
     /**
      * Function Name: checkAvailability<p>
      * Inside the function:<p>
