@@ -5,9 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -16,6 +13,7 @@ import MainPage.MainPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +22,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 public class LoginController {
     
@@ -147,7 +144,6 @@ public class LoginController {
      */
     public void requestPassword(ActionEvent e) throws IOException {
         String email = forgotEmail.getText();
-        // System.out.println(email);
 
         Staff[] staffList = readStaffFile(staffFile);
         for (Staff staff: staffList) {
@@ -162,7 +158,6 @@ public class LoginController {
             } else {
                 forgotEmailLabel.setTextFill(Color.RED);
                 forgotEmailLabel.setText("This email does not exist in our staff list. Please wait for an email from the management team before further attempts.");
-                // break;
             }
         }
     }

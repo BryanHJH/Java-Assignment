@@ -151,6 +151,7 @@ public class MainPageController implements Initializable {
         
         
         LocalDate minDate = checkInDatePicker.getValue().plusDays(1);
+        // TODO: If booking format change, the maxDate needs to change to "checkInDatePicker.getValue().plusDays(6)"
         LocalDate maxDate = LocalDate.of(2022, 3, 19);
         checkOutDatePicker.setDayCellFactory(d ->
             new DateCell() {
@@ -168,7 +169,6 @@ public class MainPageController implements Initializable {
         reservationTable.setEditable(true);
         reservationTable.setPlaceholder(new Label("No reservations to display"));
         
-        // Setting up each column inside the TableView
         /**
          * First line setups where the column should look to get its value
          * Second line setups for it to be editable
@@ -188,7 +188,6 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
 
@@ -199,14 +198,13 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
 
                 // Removing the dates of the new selected Room
                 try {
-                    Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
+                    Room[] roomList = readRoomFile(roomFile);
                     Hotel tmpHotel = new Hotel(roomList);
 
                     LocalDate checkInDate = reservation.getCheckIn();
@@ -236,7 +234,7 @@ public class MainPageController implements Initializable {
 
                 // Adding the dates back to the old Room
                 try {
-                    Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
+                    Room[] roomList = readRoomFile(roomFile);
                     Hotel tmpHotel = new Hotel(roomList);
 
                     LocalDate checkInDate = reservation.getCheckIn();
@@ -280,17 +278,15 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 
-                reservation.setCustName(newCustName); // Settng the new roomID
+                reservation.setCustName(newCustName); // Setting the new roomID
 
                 // Saving the new reservation
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
@@ -311,17 +307,15 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 
-                reservation.setCustIC(newCustIC); // Settng the new roomID
+                reservation.setCustIC(newCustIC); // Setting the new roomID
 
                 // Saving the new reservation
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
@@ -342,17 +336,15 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 
-                reservation.setCustPhone(newCustPhone); // Settng the new roomID
+                reservation.setCustPhone(newCustPhone); // Setting the new roomID
 
                 // Saving the new reservation
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
@@ -373,17 +365,15 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 
-                reservation.setCustEmail(newCustEmail); // Settng the new roomID
+                reservation.setCustEmail(newCustEmail); // Setting the new roomID
 
                 // Saving the new reservation
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
@@ -404,17 +394,15 @@ public class MainPageController implements Initializable {
                 try {
                     reservation.removeReservation(reservation);
                 } catch (Exception e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 
-                reservation.setCustFamily(newNoFamily); // Settng the new roomID
+                reservation.setCustFamily(newNoFamily); // Setting the new roomID
 
                 // Saving the new reservation
                 try {
                     reservation.saveReservation();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
@@ -422,7 +410,7 @@ public class MainPageController implements Initializable {
             
         });
         
-        // Chech In and Check Out dates cannot be edited, if changes needs to be made, delete the old record and create a new one
+        // Check In and Check Out dates cannot be edited, if changes needs to be made, delete the old record and create a new one
         checkInCol.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
         checkOutCol.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
 
@@ -439,6 +427,7 @@ public class MainPageController implements Initializable {
         }
 
         // Restricting the date to 13/3/2022 to 19/3/2022 only
+        // TODO: If booking format changes, this needs to be removed
         LocalDate minDate = LocalDate.of(2022, 3, 13);
         LocalDate maxDate = LocalDate.of(2022, 3, 19);
         checkInDatePicker.setDayCellFactory(d ->
@@ -455,11 +444,11 @@ public class MainPageController implements Initializable {
                     setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
                 }});
 
-        // Building the initial combo box
+        // Building the initial combo box by setting the default date to 13/3/2022, can be changed to today()
         checkInDatePicker.setValue(LocalDate.of(2022, 3, 13));
         
         try {
-            Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
+            Room[] roomList = readRoomFile(roomFile);
             int index = 0;
             // Ensures only rooms that can be booked are shown
             for (Room room: roomList) {
@@ -476,8 +465,6 @@ public class MainPageController implements Initializable {
 
             // Adding the list of roomID into the combo box for selection
             roomIDCombo.getItems().addAll(roomIDs);
-
-            
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -498,7 +485,7 @@ public class MainPageController implements Initializable {
      */
     public void buildComboBox() {
         try {
-            Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
+            Room[] roomList = readRoomFile(roomFile);
             int index = 0;
             // Making sure only rooms that can be booked are shown            
             for (Room room: roomList) {
@@ -583,7 +570,7 @@ public class MainPageController implements Initializable {
             
             // Creating a temporary Hotel class to hold the data
             try {
-                Room[] roomList = readRoomFile(new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json"));
+                Room[] roomList = readRoomFile(roomFile);
     
                 Hotel tmpHotel = new Hotel(roomList);
                 // Getting the list of dates that are booked
@@ -656,13 +643,10 @@ public class MainPageController implements Initializable {
      * 
      */
     public void removeReservation(ActionEvent e) {
-        File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.json");
-        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
-        
         try {
             // Getting an array of all current reservations
             Reservation[] reservations = readReservationFile(reservationFile);
-            // Creating a new arraylist of reservations that will not contain the selected reservation to delete
+            // Creating a new ArrayList of reservations that will not contain the selected reservation to delete
             ArrayList<Reservation> updatedReservations = new ArrayList<Reservation>();
             // Getting the selected Reservation
             Reservation selectedReservation = reservationTable.getSelectionModel().getSelectedItem();
@@ -748,7 +732,6 @@ public class MainPageController implements Initializable {
             }
             
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

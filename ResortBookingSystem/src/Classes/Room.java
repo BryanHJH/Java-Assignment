@@ -2,13 +2,11 @@ package Classes;
 
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Locale;
 
 public class Room {
@@ -21,6 +19,7 @@ public class Room {
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US );
 
     // Constructors
+    // TODO: If changes need to be made to the date, remove the date parameter in the constructor
     public Room(String roomID, int numberOfBeds, String roomView, double price, ArrayList<LocalDate> availableDates) throws ParseException {
         if (roomView == null || roomView.isBlank() || numberOfBeds <= 0 || roomID.length() < 3 || roomID.isBlank() || roomID == null|| price < 0) {
             throw new IllegalArgumentException("Fields you provided are invalid. Please try again.");
@@ -86,6 +85,8 @@ public class Room {
     }
 
     // Adding and removing dates
+    // TODO: If booking format is changed, the add date will become add booking into the ArrayList, meaning that day is already booked
+    // TODO: If booking format is changed, the remove date will mean that the booking on that particular date is removed, meaning the date that is being removed is free again
     /**
      * Function Name: addAvailableDate
      * <p>
@@ -151,6 +152,7 @@ public class Room {
     }
 
     // Check availability
+    // TODO: If the booking format is changed, the checkAvailability will need to return false (meaning booked) if the date exist in the ArrayList instead
     /**
      * Function Name: checkAvailability<p>
      * Inside the function:<p>

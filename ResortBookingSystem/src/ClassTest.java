@@ -23,16 +23,6 @@ import Classes.Staff;
 public class ClassTest {
 
     public static Room[] readRoomFile(File file) throws FileNotFoundException, ParseException {
-        // Scanner reader = new Scanner(file);
-        // ArrayList<String> contents = new ArrayList<String>();
-
-        // while (reader.hasNextLine()) {
-        //     contents.add(reader.nextLine());
-        // }
-        // reader.close();
-
-        // return contents;
-
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
         Room[] roomList = gson.fromJson(reader, Room[].class);
@@ -40,35 +30,17 @@ public class ClassTest {
     }
 
     public static Staff[] readStaffFile(File file) throws FileNotFoundException, ParseException {
-        // Scanner reader = new Scanner(file);
-        // ArrayList<String> contents = new ArrayList<String>();
-
-        // while (reader.hasNextLine()) {
-        //     contents.add(reader.nextLine());
-        // }
-        // reader.close();
-
-        // return contents;
-
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
         Staff[] staffList = gson.fromJson(reader, Staff[].class);
         return staffList;
     }
 
-    // public static String[] printContents(File file) throws FileNotFoundException {
-        
-    //     ArrayList<String> storage = new ArrayList<String>();
-    //     storage = readFile(file);
-    //     String joinedArray = String.join(",", storage);
-
-    //     return joinedArray.split(",");
-    // }
-
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US);
 
     public static void main(String[] args) throws Exception {
         
+        // TODO: If the booking format is changed, this part of the code can be removed, as each Room now only needs to add dates into the arraylist instead of removing them. 
         ArrayList<LocalDate> dateList = new ArrayList<LocalDate>() {
             {
                 add(LocalDate.parse(("13-03-2022"), dateFormatter));
@@ -82,26 +54,26 @@ public class ClassTest {
         };
 
         Room[] allRoomList = {
-            new Room("101", 3, "Jungle", 299.99, dateList),
-            new Room("102", 3, "Jungle", 299.99, dateList),
-            new Room("103", 1, "Jungle", 259.99, dateList),
-            new Room("104", 3, "Jungle", 299.99, dateList),
-            new Room("105", 1, "Jungle", 259.99, dateList),
-            new Room("106", 3, "Jungle", 299.99, dateList),
-            new Room("107", 2, "Jungle", 279.99, dateList),
-            new Room("108", 2, "Jungle", 279.99, dateList),
-            new Room("109", 3, "Jungle", 299.99, dateList),
-            new Room("110", 2, "Jungle", 279.99, dateList),
-            new Room("201", 3, "Sea", 399.99, dateList),
-            new Room("202", 3, "Sea", 399.99, dateList),
-            new Room("203", 1, "Sea", 359.99, dateList),
-            new Room("204", 3, "Sea", 399.99, dateList),
-            new Room("205", 1, "Sea", 359.99, dateList),
-            new Room("206", 3, "Sea", 399.99, dateList),
-            new Room("207", 2, "Sea", 379.99, dateList),
-            new Room("208", 2, "Sea", 379.99, dateList),
-            new Room("209", 3, "Sea", 399.99, dateList),
-            new Room("210", 2, "Sea", 379.99, dateList)
+            new Room("101", 3, "Jungle", 350.00, dateList),
+            new Room("102", 3, "Jungle", 350.00, dateList),
+            new Room("103", 1, "Jungle", 350.00, dateList),
+            new Room("104", 3, "Jungle", 350.00, dateList),
+            new Room("105", 1, "Jungle", 350.00, dateList),
+            new Room("106", 3, "Jungle", 350.00, dateList),
+            new Room("107", 2, "Jungle", 350.00, dateList),
+            new Room("108", 2, "Jungle", 350.00, dateList),
+            new Room("109", 3, "Jungle", 350.00, dateList),
+            new Room("110", 2, "Jungle", 350.00, dateList),
+            new Room("201", 3, "Sea", 350.00, dateList),
+            new Room("202", 3, "Sea", 350.00, dateList),
+            new Room("203", 1, "Sea", 350.00, dateList),
+            new Room("204", 3, "Sea", 350.00, dateList),
+            new Room("205", 1, "Sea", 350.00, dateList),
+            new Room("206", 3, "Sea", 350.00, dateList),
+            new Room("207", 2, "Sea", 350.00, dateList),
+            new Room("208", 2, "Sea", 350.00, dateList),
+            new Room("209", 3, "Sea", 350.00, dateList),
+            new Room("210", 2, "Sea", 350.00, dateList)
         };
         
 
