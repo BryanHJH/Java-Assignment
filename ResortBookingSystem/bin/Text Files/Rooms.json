@@ -8,89 +8,6 @@
             {
                 "year": 2022,
                 "month": 3,
-                "day": 8
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 9
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 10
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 11
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 12
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 13
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 14
-            }
-        ]
-    },
-    {
-        "numberOfBeds": 3,
-        "roomView": "Jungle",
-        "roomID": "102",
-        "price": 350,
-        "availableDates": []
-    },
-    {
-        "numberOfBeds": 1,
-        "roomView": "Jungle",
-        "roomID": "103",
-        "price": 350,
-        "availableDates": [
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 29
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 30
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 31
-            }
-        ]
-    },
-    {
-        "numberOfBeds": 3,
-        "roomView": "Jungle",
-        "roomID": "104",
-        "price": 350,
-        "availableDates": [
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 29
-            },
-            {
-                "year": 2022,
-                "month": 3,
-                "day": 30
-            },
-            {
-                "year": 2022,
-                "month": 3,
                 "day": 31
             },
             {
@@ -112,8 +29,75 @@
                 "year": 2022,
                 "month": 4,
                 "day": 4
+            },
+            {
+                "year": 2022,
+                "month": 4,
+                "day": 5
+            },
+            {
+                "year": 2022,
+                "month": 4,
+                "day": 6
             }
         ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "102",
+        "price": 350,
+        "availableDates": []
+    },
+    {
+        "numberOfBeds": 1,
+        "roomView": "Jungle",
+        "roomID": "103",
+        "price": 350,
+        "availableDates": [
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 15
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 16
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 17
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 18
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 19
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 20
+            },
+            {
+                "year": 2022,
+                "month": 3,
+                "day": 21
+            }
+        ]
+    },
+    {
+        "numberOfBeds": 3,
+        "roomView": "Jungle",
+        "roomID": "104",
+        "price": 350,
+        "availableDates": []
     },
     {
         "numberOfBeds": 1,

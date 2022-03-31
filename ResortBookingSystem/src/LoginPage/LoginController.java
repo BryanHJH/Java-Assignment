@@ -87,7 +87,8 @@ public class LoginController {
             if (staff == null) {
                 continue;
             }
-
+            
+            // TODO: Check whether the staff is administrator or not, if yes, go to AdminPage else go to MainPage
             if (staff.getEmail().equals(usernameInput)) {
                 if (staff.getPassword().equals(passwordInput)) {
                     // Switch to new scene

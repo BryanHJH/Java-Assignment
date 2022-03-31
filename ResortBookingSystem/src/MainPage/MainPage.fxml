@@ -24,70 +24,70 @@
                         <Font name="Caskaydia Cove Nerd Font Complete" size="23.0" />
                     </font>
                 </Label>
-                  <Group layoutX="33.0" layoutY="62.0" AnchorPane.leftAnchor="33.0">
-                     <children>
-                          <Label fx:id="roomIDLabel" layoutY="312.0" prefHeight="25.0" prefWidth="82.0" text="Room ID">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="custNameLabel" layoutX="3.0" prefHeight="25.0" prefWidth="121.0" text="Customer Name">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="custICLabel" layoutX="3.0" layoutY="41.0" prefHeight="25.0" prefWidth="130.0" text="IC/Passport No.">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="noFamilyLabel" layoutX="3.0" layoutY="85.0" prefHeight="39.0" prefWidth="121.0" text="Number of family members" wrapText="true">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                      <Label fx:id="custICLabel11" layoutX="1.0" layoutY="183.0" prefHeight="25.0" prefWidth="121.0" text="Customer Email">
-                          <font>
-                              <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                          </font>
-                      </Label>
-                          <Label fx:id="checkInLabel" layoutX="1.0" layoutY="232.0" prefHeight="25.0" prefWidth="117.0" text="Check In Date">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="checkOutLabel" layoutX="2.0" layoutY="273.0" prefHeight="25.0" prefWidth="124.0" text="Check Out Date">
-                              <font>
-                                  <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                              </font>
-                          </Label>
-                      <Label fx:id="custPhoneLabel" layoutY="137.0" prefHeight="41.0" prefWidth="121.0" text="Customer Phone Number" wrapText="true">
-                          <font>
-                              <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
-                          </font>
-                      </Label>
-                          <TextField fx:id="custNameTextField" layoutX="153.0" prefHeight="25.0" prefWidth="275.0" />
-                          <TextField fx:id="custICTextField" layoutX="153.0" layoutY="41.0" prefHeight="25.0" prefWidth="275.0" />
-                          <TextField fx:id="noFamilyTextField" layoutX="152.0" layoutY="85.0" prefHeight="25.0" prefWidth="275.0" />
-                      <TextField fx:id="custPhoneTextField" layoutX="151.0" layoutY="141.0" prefHeight="25.0" prefWidth="275.0" />
-                      <TextField fx:id="custEmailTextField" layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="275.0" />
-                      <DatePicker fx:id="checkInDatePicker" layoutX="145.0" layoutY="231.0" onAction="#buildComboBox" prefHeight="25.0" prefWidth="275.0" />
-                      <DatePicker fx:id="checkOutDatePicker" layoutX="145.0" layoutY="273.0" prefHeight="25.0" prefWidth="275.0" />
-                          <ComboBox fx:id="roomIDCombo" layoutX="145.0" layoutY="311.0" prefHeight="27.0" prefWidth="275.0" />
-                     </children>
-                  </Group>
-                  <Group layoutX="491.8999938964844" layoutY="96.9000015258789" AnchorPane.bottomAnchor="156.66666046778363" AnchorPane.rightAnchor="32.000001430511475" AnchorPane.topAnchor="96.90000009536743">
-                     <children>
-                          <Button id=".addButton" fx:id="addBooking" layoutX="4.100006103515625" layoutY="3.0999984741210938" mnemonicParsing="false" onAction="#addNewReservation" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Add" />
-                          <Button fx:id="clearBooking" layoutX="4.100006103515625" layoutY="97.0999984741211" mnemonicParsing="false" onAction="#clearBookingFields" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Clear" />
-                      <Button fx:id="logoutButton" layoutX="4.100006103515625" layoutY="188.0999984741211" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Logout" />
-                     </children>
-                  </Group>
-                  <Label fx:id="warningLabel" alignment="CENTER" layoutX="-2.0" layoutY="432.0" prefHeight="41.0" prefWidth="600.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0">
-                     <font>
-                        <Font name="Caskaydia Cove Nerd Font Complete" size="15.0" />
-                     </font>
-                  </Label>
+                    <Group layoutX="33.0" layoutY="62.0" AnchorPane.leftAnchor="33.0">
+                        <children>
+                            <Label fx:id="roomIDLabel" layoutY="312.0" prefHeight="25.0" prefWidth="82.0" text="Room ID">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="custNameLabel" layoutX="3.0" prefHeight="25.0" prefWidth="121.0" text="Customer Name">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="custICLabel" layoutX="3.0" layoutY="41.0" prefHeight="25.0" prefWidth="130.0" text="IC/Passport No.">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="noFamilyLabel" layoutX="3.0" layoutY="85.0" prefHeight="39.0" prefWidth="121.0" text="Number of family members" wrapText="true">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                        <Label fx:id="custICLabel11" layoutX="1.0" layoutY="183.0" prefHeight="25.0" prefWidth="121.0" text="Customer Email">
+                            <font>
+                                <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                            </font>
+                        </Label>
+                            <Label fx:id="checkInLabel" layoutX="1.0" layoutY="232.0" prefHeight="25.0" prefWidth="117.0" text="Check In Date">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="checkOutLabel" layoutX="2.0" layoutY="273.0" prefHeight="25.0" prefWidth="124.0" text="Check Out Date">
+                                <font>
+                                    <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                                </font>
+                            </Label>
+                        <Label fx:id="custPhoneLabel" layoutY="137.0" prefHeight="41.0" prefWidth="121.0" text="Customer Phone Number" wrapText="true">
+                            <font>
+                                <Font name="Caskaydia Cove Nerd Font Complete" size="14.0" />
+                            </font>
+                        </Label>
+                            <TextField fx:id="custNameTextField" layoutX="153.0" prefHeight="25.0" prefWidth="275.0" />
+                            <TextField fx:id="custICTextField" layoutX="153.0" layoutY="41.0" prefHeight="25.0" prefWidth="275.0" />
+                            <TextField fx:id="noFamilyTextField" layoutX="152.0" layoutY="85.0" prefHeight="25.0" prefWidth="275.0" />
+                        <TextField fx:id="custPhoneTextField" layoutX="151.0" layoutY="141.0" prefHeight="25.0" prefWidth="275.0" />
+                        <TextField fx:id="custEmailTextField" layoutX="151.0" layoutY="183.0" prefHeight="25.0" prefWidth="275.0" />
+                        <DatePicker fx:id="checkInDatePicker" layoutX="145.0" layoutY="231.0" onAction="#buildComboBox" prefHeight="25.0" prefWidth="275.0" />
+                        <DatePicker fx:id="checkOutDatePicker" layoutX="145.0" layoutY="273.0" prefHeight="25.0" prefWidth="275.0" />
+                            <ComboBox fx:id="roomIDCombo" layoutX="145.0" layoutY="311.0" prefHeight="27.0" prefWidth="275.0" />
+                        </children>
+                    </Group>
+                    <Group layoutX="491.8999938964844" layoutY="96.9000015258789" AnchorPane.bottomAnchor="156.66666046778363" AnchorPane.rightAnchor="32.000001430511475" AnchorPane.topAnchor="96.90000009536743">
+                        <children>
+                            <Button id=".addButton" fx:id="addBooking" layoutX="4.100006103515625" layoutY="3.0999984741210938" mnemonicParsing="false" onAction="#addNewReservation" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Add" />
+                            <Button fx:id="clearBooking" layoutX="4.100006103515625" layoutY="97.0999984741211" mnemonicParsing="false" onAction="#clearBookingFields" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Clear" />
+                        <Button fx:id="logoutButton" layoutX="4.100006103515625" layoutY="188.0999984741211" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #f3b807;" text="Logout" />
+                        </children>
+                    </Group>
+                    <Label fx:id="warningLabel" alignment="CENTER" layoutX="-2.0" layoutY="432.0" prefHeight="41.0" prefWidth="600.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0">
+                        <font>
+                            <Font name="Caskaydia Cove Nerd Font Complete" size="15.0" />
+                        </font>
+                    </Label>
                 </children></AnchorPane>
         </content>
         </Tab>
@@ -107,20 +107,20 @@
                             <TableColumn fx:id="checkOutCol" prefWidth="128.6666259765625" text="Check Out Date" />
                         </columns>
                     </TableView>
-                  <Group layoutX="409.0" layoutY="480.0" AnchorPane.rightAnchor="15.23332103093469">
-                     <children>
-                          <Button fx:id="deleteReservation" layoutX="130.10000610351562" layoutY="3.100006103515625" mnemonicParsing="false" onAction="#removeReservation" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #f3b807;" text="Delete" />
-                      <Button fx:id="printReceiptButton" layoutX="4.100006103515625" layoutY="3.100006103515625" mnemonicParsing="false" onAction="#printReceipt" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #f3b807;" text="View Receipt" />
-                     </children>
-                  </Group>
-                  <TextField fx:id="searchTextField" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="264.0" promptText="Customer name or email" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-                  <Button fx:id="clearSearchButton" layoutX="409.0" layoutY="11.0" mnemonicParsing="false" onAction="#clearSearch" prefWidth="100.0" style="-fx-background-color: #f3b807;" text="Clear" AnchorPane.leftAnchor="409.0" AnchorPane.topAnchor="11.0" />
-                  <Button fx:id="searchButton" layoutX="301.0" layoutY="11.0" mnemonicParsing="false" onAction="#search" prefWidth="100.0" style="-fx-background-color: #f3b807;" text="Search" AnchorPane.leftAnchor="301.0" AnchorPane.topAnchor="11.0" />
-                  <Label fx:id="receiptWarningLabel" layoutX="14.0" layoutY="484.0" prefHeight="34.0" prefWidth="387.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0">
-                     <font>
-                        <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
-                     </font>
-                  </Label>
+                    <Group layoutX="409.0" layoutY="480.0" AnchorPane.rightAnchor="15.23332103093469">
+                        <children>
+                            <Button fx:id="deleteReservation" layoutX="130.10000610351562" layoutY="3.100006103515625" mnemonicParsing="false" onAction="#removeReservation" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #f3b807;" text="Delete" />
+                        <Button fx:id="printReceiptButton" layoutX="4.100006103515625" layoutY="3.100006103515625" mnemonicParsing="false" onAction="#printReceipt" prefHeight="34.0" prefWidth="105.0" style="-fx-background-color: #f3b807;" text="View Receipt" />
+                        </children>
+                    </Group>
+                    <TextField fx:id="searchTextField" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="264.0" promptText="Customer name or email" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                    <Button fx:id="clearSearchButton" layoutX="409.0" layoutY="11.0" mnemonicParsing="false" onAction="#clearSearch" prefWidth="100.0" style="-fx-background-color: #f3b807;" text="Clear" AnchorPane.leftAnchor="409.0" AnchorPane.topAnchor="11.0" />
+                    <Button fx:id="searchButton" layoutX="301.0" layoutY="11.0" mnemonicParsing="false" onAction="#search" prefWidth="100.0" style="-fx-background-color: #f3b807;" text="Search" AnchorPane.leftAnchor="301.0" AnchorPane.topAnchor="11.0" />
+                    <Label fx:id="receiptWarningLabel" layoutX="14.0" layoutY="484.0" prefHeight="34.0" prefWidth="387.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="14.0">
+                        <font>
+                            <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                        </font>
+                    </Label>
                 </children></AnchorPane>
         </content>
         </Tab>

@@ -7,10 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Staff {
+    // Add a new boolean variable called isAdmin
     private String name, email, password, dateOfBirth, staffIC;
     private int age;
 
     // Constructors
+    // TODO: Add a new parameter: isAdmin (boolean)
     public Staff(String name, String email, String password, String dateOfBirth, String staffIC) throws Exception {
         if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank() || staffIC.isBlank() || staffIC == null || staffIC.length() < 11 || dateOfBirth.isBlank() || dateOfBirth == null) {
             throw new IllegalArgumentException("Fields cannot be blank!");
@@ -34,6 +36,7 @@ public class Staff {
     }
 
     // Getters
+    // TODO: add isAdmin getter
     public String getName() {
         return name;
     }
@@ -59,6 +62,7 @@ public class Staff {
     }
 
     // Setters
+    // TODO: add setIsAdmin setter
     public void setName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank or null!");
@@ -130,6 +134,7 @@ public class Staff {
     }
 
     // toString()
+    // TODO: Add Role and it displays Administrator if isAdmin == true else Staff
     public String toString() {
         return ("Name\t\t: " + this.name + 
                 "\nAge\t\t: " + this.age + 
