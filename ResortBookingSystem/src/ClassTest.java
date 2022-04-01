@@ -35,7 +35,6 @@ public class ClassTest {
 
     public static void main(String[] args) throws Exception {
         
-        // TODO: If the booking format is changed, this part of the code can be removed, as each Room now only needs to add dates into the arraylist instead of removing them. 
         // ArrayList<LocalDate> dateList = new ArrayList<LocalDate>() {
         //     {
         //         add(LocalDate.parse(("13-03-2022"), dateFormatter));
@@ -73,11 +72,11 @@ public class ClassTest {
         
 
         Hotel testHotel = new Hotel(allRoomList);
-        testHotel.addStaff(new Staff("John", "john@resort.com", "johnresort", "13-3-1990", "111111102938"));
-        testHotel.addStaff(new Staff("Ron", "ron@resort.com", "ronresort", "13-3-1992", "111111102928"));
-        testHotel.addStaff(new Staff("Ren", "ren@resort.com", "renresort", "14-4-1980", "111111101938"));
-        testHotel.addStaff(new Staff("Bam", "bam@resort.com", "bamresort", "15-5-1950", "111111103938"));
-        testHotel.addStaff(new Staff("Gavin", "gavin@resort.com", "gavinresort", "13-3-1995", "111111102838"));
+        testHotel.addStaff(new Staff("John", "john@resort.com", "johnresort", "13-3-1990", "111111102938", true));
+        testHotel.addStaff(new Staff("Ron", "ron@resort.com", "ronresort", "13-3-1992", "111111102928", false));
+        testHotel.addStaff(new Staff("Ren", "ren@resort.com", "renresort", "14-4-1980", "111111101938", false));
+        testHotel.addStaff(new Staff("Bam", "bam@resort.com", "bamresort", "15-5-1950", "111111103938", false));
+        testHotel.addStaff(new Staff("Gavin", "gavin@resort.com", "gavinresort", "13-3-1995", "111111102838", false));
 
         testHotel.removeStaff("Ron");
         System.out.println(testHotel);

@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import Classes.Hotel;
 import Classes.Reservation;
 import Classes.Room;
+import Classes.Staff;
 import ReceiptPage.ReceiptController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,11 +35,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
@@ -59,36 +62,41 @@ public class AdminPageController implements Initializable{
     @FXML
     private TableColumn<Reservation, Integer> noFamilyCol;
     
-    // TODO: Add the new TableView for the Staff table
+    @FXML
+    private TableView<Staff> staffTable;
+
+    @FXML
+    private TableColumn<Staff, String> staffNameCol, staffICCol, staffEmailCol, staffPasswordCol, staffDOBCol, staffRoleCol;
 
     @FXML
     private DatePicker checkInDatePicker, checkOutDatePicker;
 
-    // TODO: Add the new Admin Buttons here
     @FXML
-    private Button addBooking, clearBooking, logoutButton, deleteReservation, printReceiptButton, searchButton, clearSearchButton;
+    private Button addBooking, clearBooking, logoutButton, deleteReservation, printReceiptButton, searchButton, clearSearchButton, staffSearchButton, staffSearchClearButton, staffAddButton, staffClearButton, staffLogoutButton, fireStaffButton;
 
     @FXML
     private ComboBox<String> roomIDCombo;
 
-    // TODO: Add the new Admin Labels here
     @FXML
     private Label checkInLabel, checkOutLabel, custICLabel, custNameLabel, noFamilyLabel, roomIDLabel, welcomeMessage, custPhonLabel, custEmailLabel, warningLabel, receiptWarningLabel;
 
     @FXML
     private Tab newBooking, viewBookings;
 
-    // TODO: Add the new Admin Textfield here
     @FXML
-    private TextField custICTextField, custNameTextField, noFamilyTextField, custPhoneTextField, custEmailTextField, searchTextField;
+    private TextField custICTextField, custNameTextField, noFamilyTextField, custPhoneTextField, custEmailTextField, searchTextField, staffNameTextField, staffICTextField, staffEmailTextField, passwordTextField, dobTextField, staffSearchTextField;
 
-    // TODO: Add the new Admin Radio Buttons here and Toggle Group
+    @FXML
+    private RadioButton staffAdminRadio, staffRadio;
+
+    @FXML
+    private ToggleGroup staffRole;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    // TODO: Add a new staffFile variable here
+    private File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.json");
     private File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
     private File reservationFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Reservations.json");
 
@@ -96,8 +104,25 @@ public class AdminPageController implements Initializable{
 
     String[] roomIDs = new String[20];
 
-    // TODO: Add a new function named readStaffFile
-
+    /**
+     * Function Name: readStaffFile<p>
+     * Inside the function: <p>
+     * 1. Create a GSON object <P>
+     * 2. Create a FileReader object <p>
+     * 3. Read the contents of a file and store it as a Staff Array <p>
+     * 4. Return the Staff Array
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws ParseException
+     */
+    public static Staff[] readStaffFile(File file) throws FileNotFoundException {
+        Gson gson = new Gson();
+        Reader reader = new FileReader(file);
+        Staff[] staffList = gson.fromJson(reader, Staff[].class);
+        return staffList;
+    }
+    
     /**
      * Function Name: readRoomFile<p>
      * Inside the function:<p>
@@ -112,7 +137,6 @@ public class AdminPageController implements Initializable{
      * 
      */
     public static Room[] readRoomFile(File file) throws FileNotFoundException {
-
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
         Room[] roomList = gson.fromJson(reader, Room[].class);
@@ -173,8 +197,194 @@ public class AdminPageController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
-        // TODO: Set up Staff Table
-        // TODO: Set up each Staff Column to allow for edits
+        staffTable.setEditable(true);
+        staffTable.setPlaceholder(new Label("No staff records to display"));
+
+        staffNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        staffNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffNameCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffName = event.getNewValue();
+                String oldStaffName = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getName().equals(oldStaffName)) {
+                            staffList[i].setName(newStaffName);
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    }
+
+                    // tmpHotel.addStaff(editedStaff);
+
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+            
+        });
+
+        staffEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        staffEmailCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffEmailCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffEmail = event.getNewValue();
+                String oldStaffEmail = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getEmail().equals(oldStaffEmail)) {
+                            staffList[i].setEmail(newStaffEmail);
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    } 
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        });
+
+        staffPasswordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        staffPasswordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffPasswordCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffPassword = event.getNewValue();
+                String oldStaffPassword = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getPassword().equals(oldStaffPassword)) {
+                            staffList[i].setPassword(newStaffPassword);
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    } 
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+            }
+            
+        });
+
+        staffDOBCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        staffDOBCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffDOBCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffDateOfBirth = event.getNewValue();
+                String oldStaffDateOfBirth = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getDateOfBirth().equals(oldStaffDateOfBirth)) {
+                            staffList[i].setDateOfBirth(newStaffDateOfBirth);
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    } 
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            
+        });
+
+        staffICCol.setCellValueFactory(new PropertyValueFactory<>("staffIC"));
+        staffICCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffICCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffIC = event.getNewValue();
+                String oldStaffIC = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getStaffIC().equals(oldStaffIC)) {
+                            staffList[i].setStaffIC(newStaffIC);
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    } 
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+            }
+            
+        });
+
+        staffRoleCol.setCellValueFactory(new PropertyValueFactory<>("admin"));
+        staffRoleCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        staffRoleCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Staff,String>>() {
+
+            @Override
+            public void handle(CellEditEvent<Staff, String> event) {
+                String newStaffRole = event.getNewValue();
+                String oldStaffRole = event.getOldValue();
+                
+                try {
+                    Staff[] staffList = readStaffFile(staffFile);
+                    Room[] roomList = readRoomFile(roomFile);
+                    Hotel tmpHotel = new Hotel(roomList);
+
+                    for (int i = 0; i < staffList.length; i++) {
+                        if (staffList[i].getAdmin().equals(oldStaffRole)) {
+                            staffList[i].setIsAdmin((newStaffRole.equals("Administrator") ? true : false));
+                            tmpHotel.addStaff(staffList[i]);
+                            continue;
+                        }
+                        tmpHotel.addStaff(staffList[i]);
+                    } 
+                    tmpHotel.saveStaffData();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+            }
+            
+        });
 
         // Setting up the reservation table
         // Second line of each Table Column enables editing and converting the edited value to its correct type
@@ -438,6 +648,17 @@ public class AdminPageController implements Initializable{
             System.out.println(e.getMessage());
         }
 
+        try {
+            Staff[] staffList = readStaffFile(staffFile);
+            if (staffList != null) {
+                for (Staff staff: staffList) {
+                    staffTable.getItems().add(staff);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         // Restricting the date to 13/3/2022 to 19/3/2022 only
         // LocalDate minDate = LocalDate.of(2022, 3, 13);
         // LocalDate maxDate = LocalDate.of(2022, 3, 19);
@@ -638,8 +859,63 @@ public class AdminPageController implements Initializable{
         buildComboBox();
     }
 
-    // TODO: Create a addStaff function
-    // TODO: Create a clearStaffFields function
+    /**
+     * Function Name: addStaff <p>
+     * Inside the function: <p>
+     *  1. Get all the values from the text fields <p>
+     *  2. If all fields are correct, start by storing all existing staff in to an ArrayList <p>
+     *  3. Then store the newest staff into the ArrayList <p>
+     *  5. Save the edited Staff List to the Staff.json file <p>
+     *  6. Update the TableView <p>
+     *  7. Clear all fields <p>
+     * @param event
+     */
+    public void addStaff(ActionEvent event) {
+        String staffName = staffNameTextField.getText();
+        String staffIC = staffICTextField.getText();
+        String staffEmail = staffEmailTextField.getText();
+        String staffPassword = passwordTextField.getText();
+        String staffDOB = dobTextField.getText();
+
+        RadioButton selectedRadioButton = (RadioButton) staffRole.getSelectedToggle();
+        String staffRole = selectedRadioButton.getText();
+
+        try {
+            Room[] roomList = readRoomFile(roomFile);
+            Staff[] staffList = readStaffFile(staffFile);
+            Hotel tmpHotel = new Hotel(roomList);
+            Staff newStaff = new Staff(staffName, staffEmail, staffPassword, staffDOB, staffIC, ((staffRole.equals("Administrator") ? true : false))); 
+
+            for (Staff staff: staffList) {
+                tmpHotel.addStaff(staff);
+            }
+            tmpHotel.addStaff(newStaff);
+            tmpHotel.saveStaffData();
+
+            staffTable.getItems().add(newStaff);
+            clearStaffFields(event);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        
+    }
+
+    /**
+     * Function Name: clearStaffFields <p>
+     * Inside the function: <p>
+     * 1. Clear all the fields in the Register new staff page <p>
+     * @param event
+     */
+    public void clearStaffFields(ActionEvent event) {
+        staffNameTextField.clear();
+        staffEmailTextField.clear();
+        passwordTextField.clear();
+        staffICTextField.clear();
+        dobTextField.clear();
+    }
 
     /**
      * Function Name; removeReservation <p>
@@ -711,8 +987,50 @@ public class AdminPageController implements Initializable{
         }
     }
 
-    // TODO: Create a fireStaff function
-    
+    /**
+     * Function Name: fireStaff <p>
+     * Inside the function: <p>
+     *  1. Get the selected row from the TableView  <p>
+     *  2. Get the Staff object from the selected item in the Table <p>
+     *  3. Prepare a new empty ArrayList of Staff <p>
+     *  4. Loop through all the existing Staff, and if it matches the one selected, then don't add it to the new ArrayList
+     *  5. Add all the other that do not match into the ArrayList
+     *  6. Save the list to the Staff.json file
+     * 
+     * @param e
+     * 
+     */
+    public void fireStaff(ActionEvent event) {
+        Staff selectedStaff = staffTable.getSelectionModel().getSelectedItem();
+        int selectedRow = staffTable.getSelectionModel().getSelectedIndex();
+        try {
+            // Getting the necessary variables
+            Room[] roomList = readRoomFile(roomFile); // Used to initialize a new Hotel object
+            Staff[] staffList = readStaffFile(staffFile); // List of existing staffs
+            ArrayList<Staff> newStaffList = new ArrayList<>(); // ArrayList of new staff (does not include fired staff)
+            Hotel tmpHotel = new Hotel(roomList); // Hotel object to handle the staff information
+
+            for (Staff staff: staffList) {
+                if (staff.equals(selectedStaff)) {
+                    continue; // Do not add the fired staff into the newStaffList
+                }
+                newStaffList.add(staff); // Add the non-fired staff into the newStaffList
+            }
+
+            for (Staff staff: newStaffList) {
+                tmpHotel.addStaff(staff); // Adding the non-fired staff to the Hotel object
+            }
+
+            staffTable.getItems().remove(selectedRow);
+            staffTable.getSelectionModel().clearSelection();
+            tmpHotel.saveStaffData(); // Saving the non-fired staff list into the JSON file
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Function Name: search <p>
@@ -783,8 +1101,57 @@ public class AdminPageController implements Initializable{
         }
     }
 
-    // TODO: Create a searchStaff function
-    // TODO: Create a staffSearchClear function
+    /**
+     * Function Name: searchStaff <p>
+     * Inside the function: <p>
+     * 1. Get the existing list of Staff <p>
+     * 2. Get the searched text <p>
+     * 3. Loop through the list and if it matches, update the table to only contain the ones that match
+     * 
+     * @param event
+     */
+    public void searchStaff(ActionEvent event) {
+        try {
+            Staff[] staffList = readStaffFile(staffFile);
+            String searchedStaff = staffSearchTextField.getText().toLowerCase().trim();
+
+            for (Staff staff: staffList) {
+                if (staff.getName().toLowerCase().trim().equals(searchedStaff)) {
+                    staffTable.getItems().removeAll(staffList);
+                    staffTable.getItems().add(staff);
+                } else {
+                    continue;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Function Name: staffSearchClear <p>
+     * Inside the function: <p>
+     * 1. Clear the searched text textfield <p>
+     * 2. Loop through the Staff List and add in each item into the table
+     * 
+     * @param event
+     */
+    public void staffSearchClear(ActionEvent event) {
+        staffSearchTextField.clear();
+
+        try {
+            Staff[] staffList = readStaffFile(staffFile);
+            if (staffList != null) {
+                staffTable.getItems().removeAll(staffList);
+                for (Staff staff: staffList) {
+                    staffTable.getItems().add(staff);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Function Name: printReceipt <p>

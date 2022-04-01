@@ -10,10 +10,10 @@ public class Staff {
     // Add a new boolean variable called isAdmin
     private String name, email, password, dateOfBirth, staffIC;
     private int age;
+    private boolean isAdmin;
 
     // Constructors
-    // TODO: Add a new parameter: isAdmin (boolean)
-    public Staff(String name, String email, String password, String dateOfBirth, String staffIC) throws Exception {
+    public Staff(String name, String email, String password, String dateOfBirth, String staffIC, boolean isAdmin) throws Exception {
         if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank() || staffIC.isBlank() || staffIC == null || staffIC.length() < 11 || dateOfBirth.isBlank() || dateOfBirth == null) {
             throw new IllegalArgumentException("Fields cannot be blank!");
         }
@@ -24,6 +24,7 @@ public class Staff {
         this.dateOfBirth = dateOfBirth;
         this.staffIC = staffIC;
         this.age = toAge(dateOfBirth);
+        this.isAdmin = isAdmin;
     }
 
     public Staff(Staff source) throws Exception {
@@ -33,36 +34,64 @@ public class Staff {
         this.dateOfBirth = source.dateOfBirth;
         this.staffIC = source.staffIC;
         this.age = toAge(source.dateOfBirth);
+        this.isAdmin = source.isAdmin;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if ( obj == null ) {
+            return false;
+        }
+
+        if ( !(obj instanceof Staff) ) {
+            return false;
+        }
+
+        Staff staff = (Staff) obj;
+
+        return (staff.getName().equals(this.name) &&
+                staff.getEmail().equals(this.email) &&
+                staff.getPassword().equals(this.password) &&
+                staff.getDateOfBirth().equals(this.dateOfBirth) &&
+                staff.getStaffIC().equals(this.staffIC) &&
+                staff.getAge() == this.age &&
+                staff.isAdminBool() == this.isAdmin);
     }
 
     // Getters
-    // TODO: add isAdmin getter
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
     
     public String getDateOfBirth() {
-        return dateOfBirth;
+        return this.dateOfBirth;
     }
 
     public String getStaffIC() {
-        return staffIC;
+        return this.staffIC;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
+    }
+
+    public boolean isAdminBool() {
+        return this.isAdmin;
+    }
+
+    public String getAdmin() {
+        return (this.isAdmin ? "Administrator" : "Staff");
     }
 
     // Setters
-    // TODO: add setIsAdmin setter
     public void setName(String name) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank or null!");
@@ -108,6 +137,10 @@ public class Staff {
         this.age = age;
     }
 
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     // Methods
     /**
      * Function name: toAge <p>
@@ -134,12 +167,12 @@ public class Staff {
     }
 
     // toString()
-    // TODO: Add Role and it displays Administrator if isAdmin == true else Staff
     public String toString() {
         return ("Name\t\t: " + this.name + 
                 "\nAge\t\t: " + this.age + 
                 "\nIC\t\t: " + this.staffIC +
                 "\nDate of birth\t: " + this.dateOfBirth + 
-                "\nEmail\t\t: " + this.email + "\n\n");
+                "\nEmail\t\t: " + this.email + "\n\n" + 
+                "\nRole\t\t: " + (this.isAdmin ? "Administrator" : "Staff"));
     }   
 }

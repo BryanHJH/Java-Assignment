@@ -5,15 +5,17 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="661.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPage.MainPageController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="661.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPage.AdminPageController">
     <tabs>
         <Tab fx:id="newBooking" closable="false" text="New Booking">
         <content>
@@ -126,12 +128,89 @@
         </Tab>
       <Tab fx:id="registerStaff" text="Register new Staff">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Group layoutX="69.0" layoutY="63.0">
+                     <children>
+                        <Label fx:id="staffNameLabel" layoutY="1.0" prefHeight="26.0" prefWidth="140.0" text="Name:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="staffNameLabel1" layoutY="99.0" prefHeight="26.0" prefWidth="140.0" text="Email:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="staffNameLabel11" layoutY="150.0" prefHeight="26.0" prefWidth="140.0" text="Password:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="staffNameLabel111" layoutY="199.0" prefHeight="26.0" prefWidth="140.0" text="Date of Birth:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="staffNameLabel1111" layoutY="47.0" prefHeight="26.0" prefWidth="151.0" text="IC/Passport no:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="staffNameLabel11111" layoutY="250.0" prefHeight="26.0" prefWidth="151.0" text="Role:">
+                           <font>
+                              <Font name="Caskaydia Cove Nerd Font Complete" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="staffNameTextField" layoutX="207.0" prefHeight="25.0" prefWidth="215.0" />
+                        <TextField fx:id="staffICTextField" layoutX="207.0" layoutY="47.0" prefWidth="215.0" />
+                        <TextField fx:id="staffEmailTextField" layoutX="207.0" layoutY="99.0" prefWidth="215.0" />
+                        <TextField fx:id="passwordTextField" layoutX="207.0" layoutY="150.0" prefWidth="215.0" />
+                        <TextField fx:id="dobTextField" layoutX="207.0" layoutY="199.0" prefWidth="215.0" />
+                        <RadioButton fx:id="staffAdminRadio" layoutX="207.0" layoutY="254.0" mnemonicParsing="false" text="Administrator">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="staffRole" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="staffRadio" layoutX="358.0" layoutY="254.0" mnemonicParsing="false" text="Staff" toggleGroup="$staffRole" />
+                     </children>
+                  </Group>
+                  <Group layoutX="553.7984619140625" layoutY="71.9000015258789" AnchorPane.rightAnchor="24.434897263844846" AnchorPane.topAnchor="71.90000009536743">
+                     <children>
+                        <Button fx:id="staffAddButton" layoutX="6.0999755859375" layoutY="3.0999984741210938" mnemonicParsing="false" onAction="#addStaff" prefWidth="75.0" style="-fx-background-color: #f3b807;" text="Add" />
+                        <Button fx:id="staffClearButton" layoutX="6.0999755859375" layoutY="103.0999984741211" mnemonicParsing="false" onAction="#clearStaffFields" prefWidth="75.0" style="-fx-background-color: #f3b807;" text="Clear" />
+                        <Button fx:id="staffLogoutButton" layoutX="4.0999755859375" layoutY="196.0999984741211" mnemonicParsing="false" onAction="#logout" prefWidth="75.0" style="-fx-background-color: #f3b807;" text="Logout" />
+                     </children>
+                  </Group>
+               </children></AnchorPane>
         </content>
       </Tab>
       <Tab fx:id="staffList" text="Staff List">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Group layoutX="14.0" layoutY="9.899999618530273" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="142.33333333333337" AnchorPane.topAnchor="9.900000095367432">
+                     <children>
+                        <TextField fx:id="staffSearchTextField" layoutY="4.100000381469727" prefHeight="25.0" prefWidth="294.0" promptText="Staff Name or IC/Passport No." />
+                        <Button fx:id="staffSearchButton" layoutX="330.0" layoutY="3.1000003814697266" mnemonicParsing="false" onAction="#searchStaff" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #f3b807;" text="Search" />
+                        <Button fx:id="staffSearchClearButton" layoutX="426.0" layoutY="3.1000003814697266" mnemonicParsing="false" onAction="#staffSearchClear" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #f3b807;" text="Clear" />
+                     </children>
+                  </Group>
+                  <TableView fx:id="staffTable" editable="true" layoutY="54.0" prefHeight="426.0" prefWidth="661.0" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0">
+                    <columns>
+                      <TableColumn fx:id="staffNameCol" prefWidth="75.0" text="Staff Name" />
+                        <TableColumn fx:id="staffICCol" prefWidth="75.0" text="Staff IC" />
+                      <TableColumn fx:id="staffEmailCol" prefWidth="75.0" text="Staff Email" />
+                        <TableColumn fx:id="staffPasswordCol" prefWidth="75.0" text="Staff Password" />
+                        <TableColumn fx:id="staffDOBCol" prefWidth="75.0" text="Staff Date of Birth" />
+                        <TableColumn fx:id="staffRoleCol" prefWidth="75.0" text="Staff Role" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Button fx:id="fireStaffButton" layoutX="557.0" layoutY="491.0" mnemonicParsing="false" onAction="#fireStaff" prefHeight="31.0" prefWidth="89.0" style="-fx-background-color: #f3b807;" text="Delete" AnchorPane.bottomAnchor="13.666666666666668" AnchorPane.rightAnchor="15.000000000000043" />
+               </children></AnchorPane>
         </content>
       </Tab>
     </tabs>
