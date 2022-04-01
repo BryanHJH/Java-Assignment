@@ -9,6 +9,7 @@ import java.io.Reader;
 import com.google.gson.Gson;
 
 import Classes.Staff;
+import MainPage.AdminPageController;
 import MainPage.MainPageController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,19 +88,31 @@ public class LoginController {
             if (staff == null) {
                 continue;
             }
-
+            
             if (staff.getEmail().equals(usernameInput)) {
                 if (staff.getPassword().equals(passwordInput)) {
                     // Switch to new scene
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainPage/MainPage.fxml"));
-                    root = loader.load();
-                    MainPageController mainPageController = loader.getController();
-                    mainPageController.displayWelcomeMessage(staff.getName());
+                    if (staff.isAdminBool()) { // Is an Admin
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainPage/AdminPage.fxml"));
+                        root = loader.load();
+                        AdminPageController mainPageController = loader.getController();
+                        mainPageController.displayWelcomeMessage(staff.getName());
 
-                    stage =  (Stage)((Node) e.getSource()).getScene().getWindow();
-                    scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
+                        stage =  (Stage)((Node) e.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    } else { // Not an Admin
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainPage/MainPage.fxml"));
+                        root = loader.load();
+                        MainPageController mainPageController = loader.getController();
+                        mainPageController.displayWelcomeMessage(staff.getName());
+    
+                        stage =  (Stage)((Node) e.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
                 } else {
                     outcomeMessage.setTextFill(Color.RED);
                     outcomeMessage.setText("Email or password is wrong!");
