@@ -19,7 +19,7 @@ public class Room {
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US );
 
     // Constructors
-    public Room(String roomID, int numberOfBeds, String roomView, double price) throws ParseException {
+    public Room(String roomID, int numberOfBeds, String roomView, double price, ArrayList<LocalDate> dateList) throws ParseException {
         if (roomView == null || roomView.isBlank() || numberOfBeds <= 0 || roomID.length() < 3 || roomID.isBlank() || roomID == null|| price < 0) {
             throw new IllegalArgumentException("Fields you provided are invalid. Please try again.");
         }
@@ -28,7 +28,7 @@ public class Room {
         this.numberOfBeds = numberOfBeds;
         this.roomView = roomView;
         this.price = price;
-        this.availableDates = new ArrayList<>();
+        this.availableDates = dateList;
     }
 
     public Room(Room source) {

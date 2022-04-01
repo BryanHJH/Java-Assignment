@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SetUp",
+            "vmArgs": "--add-opens java.base/java.time=ALL-UNNAMED",
+            "request": "launch",
+            "mainClass": "SetUp",
+            "projectName": "ResortBookingSystem_86882e04"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "vmArgs": "--add-opens java.base/java.time=ALL-UNNAMED",
             "request": "launch",

@@ -185,7 +185,7 @@ public class AdminPageController implements Initializable{
         
         
         LocalDate minDate = checkInDatePicker.getValue().plusDays(1);
-        LocalDate maxDate = checkInDatePicker.getValue().plusDays(6);
+        LocalDate maxDate = LocalDate.of(2022, 3, 19);
         checkOutDatePicker.setDayCellFactory(d ->
             new DateCell() {
                 @Override public void updateItem(LocalDate item, boolean empty) {
@@ -660,21 +660,21 @@ public class AdminPageController implements Initializable{
         }
 
         // Restricting the date to 13/3/2022 to 19/3/2022 only
-        // LocalDate minDate = LocalDate.of(2022, 3, 13);
-        // LocalDate maxDate = LocalDate.of(2022, 3, 19);
-        // checkInDatePicker.setDayCellFactory(d ->
-        //     new DateCell() {
-        //         @Override public void updateItem(LocalDate item, boolean empty) {
-        //             super.updateItem(item, empty);
-        //             setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
-        //         }});
+        LocalDate minDate = LocalDate.of(2022, 3, 13);
+        LocalDate maxDate = LocalDate.of(2022, 3, 19);
+        checkInDatePicker.setDayCellFactory(d ->
+            new DateCell() {
+                @Override public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+                }});
         
-        // checkOutDatePicker.setDayCellFactory(d ->
-        //     new DateCell() {
-        //         @Override public void updateItem(LocalDate item, boolean empty) {
-        //             super.updateItem(item, empty);
-        //             setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
-        //         }});
+        checkOutDatePicker.setDayCellFactory(d ->
+            new DateCell() {
+                @Override public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+                }});
 
         // Building the initial combo box by setting the default date to 13/3/2022, can be changed to today()
         checkInDatePicker.setValue(LocalDate.now());
@@ -721,7 +721,7 @@ public class AdminPageController implements Initializable{
             int index = 0;
             // Making sure only rooms that can be booked are shown     
             for (Room room: roomList) {
-                if (!room.checkAvailability(checkInDatePicker.getValue())) {
+                if (room.checkAvailability(checkInDatePicker.getValue())) {
                     roomIDs[index] = room.getRoomID();
                 } else {
                     roomIDs[index] = "Room not available";
@@ -814,10 +814,10 @@ public class AdminPageController implements Initializable{
                     for (LocalDate date: dates) {
                         String formattedDate = dateFormatter.format(date);
                         // LocalDate newDate = LocalDate.parse(formattedDate, dateFormatter);
-                        tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), formattedDate);
+                        tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), formattedDate);
                     }
                     // Remove the check out date
-                    tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), dateFormatter.format(checkOutDate));
+                    tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(roomID)).getRoomID(), dateFormatter.format(checkOutDate));
                     // Saving the new available dates
                     tmpHotel.saveRoomData();
                 } catch (Exception e1) {
@@ -899,8 +899,6 @@ public class AdminPageController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        
     }
 
     /**
@@ -963,10 +961,10 @@ public class AdminPageController implements Initializable{
                 for (LocalDate date: dates) {
                     String formattedDate = dateFormatter.format(date);
                     // LocalDate newDate = LocalDate.parse(formattedDate, dateFormatter);
-                    tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), formattedDate);
+                    tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), formattedDate);
                 }
                 // add the check out date
-                tmpHotel.removeDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), dateFormatter.format(reservationCheckOut));
+                tmpHotel.addDate(tmpHotel.getRoom(tmpHotel.searchRoom(selectedReservation.getRoomID())).getRoomID(), dateFormatter.format(reservationCheckOut));
                 // Saving the new available dates
                 tmpHotel.saveRoomData();
             } catch (Exception e1) {

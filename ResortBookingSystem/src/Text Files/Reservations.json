@@ -1,1 +1,25 @@
-[{"roomID":"103","custIC":"20202712039344","custName":"Bryan","custPhone":"0109223345","custEmail":"bryan@email.com","custFamily":2,"durationOfStay":6,"checkIn":{"year":2022,"month":3,"day":15},"checkOut":{"year":2022,"month":3,"day":21},"finalPrice":2370.0,"roomPrice":2100.0,"serviceTax":210.0,"tourismTax":60.0},{"roomID":"101","custIC":"02939348293","custName":"Damian","custPhone":"012233449583","custEmail":"damian@email.com","custFamily":3,"durationOfStay":6,"checkIn":{"year":2022,"month":3,"day":31},"checkOut":{"year":2022,"month":4,"day":6},"finalPrice":2370.0,"roomPrice":2100.0,"serviceTax":210.0,"tourismTax":60.0},{"roomID":"102","custIC":"080811201122","custName":"John","custPhone":"0192234434","custEmail":"john@email.com","custFamily":2,"durationOfStay":3,"checkIn":{"year":2022,"month":3,"day":27},"checkOut":{"year":2022,"month":3,"day":30},"finalPrice":1185.0,"roomPrice":1050.0,"serviceTax":105.0,"tourismTax":30.0}]
+[
+    {
+        "roomID": "101",
+        "custIC": "02202710029348",
+        "custName": "Bryan",
+        "custPhone": "012233948374",
+        "custEmail": "bryan@email.com",
+        "custFamily": 3,
+        "durationOfStay": 2,
+        "checkIn": {
+            "year": 2022,
+            "month": 3,
+            "day": 13
+        },
+        "checkOut": {
+            "year": 2022,
+            "month": 3,
+            "day": 15
+        },
+        "finalPrice": 790,
+        "roomPrice": 700,
+        "serviceTax": 70,
+        "tourismTax": 20
+    }
+]

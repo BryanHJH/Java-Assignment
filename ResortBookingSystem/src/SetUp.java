@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ import Classes.Hotel;
 import Classes.Room;
 import Classes.Staff;
 
-public class ClassTest {
+public class SetUp {
 
     public static Room[] readRoomFile(File file) throws FileNotFoundException, ParseException {
         Gson gson = new Gson();
@@ -35,39 +36,39 @@ public class ClassTest {
 
     public static void main(String[] args) throws Exception {
         
-        // ArrayList<LocalDate> dateList = new ArrayList<LocalDate>() {
-        //     {
-        //         add(LocalDate.parse(("13-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("14-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("15-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("16-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("17-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("18-03-2022"), dateFormatter));
-        //         add(LocalDate.parse(("19-03-2022"), dateFormatter));
-        //     }
-        // };
+        ArrayList<LocalDate> dateList = new ArrayList<LocalDate>() {
+            {
+                add(LocalDate.parse(("13-03-2022"), dateFormatter));
+                add(LocalDate.parse(("14-03-2022"), dateFormatter));
+                add(LocalDate.parse(("15-03-2022"), dateFormatter));
+                add(LocalDate.parse(("16-03-2022"), dateFormatter));
+                add(LocalDate.parse(("17-03-2022"), dateFormatter));
+                add(LocalDate.parse(("18-03-2022"), dateFormatter));
+                add(LocalDate.parse(("19-03-2022"), dateFormatter));
+            }
+        };
 
         Room[] allRoomList = {
-            new Room("101", 3, "Jungle", 350.00),
-            new Room("102", 3, "Jungle", 350.00),
-            new Room("103", 1, "Jungle", 350.00),
-            new Room("104", 3, "Jungle", 350.00),
-            new Room("105", 1, "Jungle", 350.00),
-            new Room("106", 3, "Jungle", 350.00),
-            new Room("107", 2, "Jungle", 350.00),
-            new Room("108", 2, "Jungle", 350.00),
-            new Room("109", 3, "Jungle", 350.00),
-            new Room("110", 2, "Jungle", 350.00),
-            new Room("201", 3, "Sea", 350.00),
-            new Room("202", 3, "Sea", 350.00),
-            new Room("203", 1, "Sea", 350.00),
-            new Room("204", 3, "Sea", 350.00),
-            new Room("205", 1, "Sea", 350.00),
-            new Room("206", 3, "Sea", 350.00),
-            new Room("207", 2, "Sea", 350.00),
-            new Room("208", 2, "Sea", 350.00),
-            new Room("209", 3, "Sea", 350.00),
-            new Room("210", 2, "Sea", 350.00)
+            new Room("101", 3, "Jungle", 350.00, dateList),
+            new Room("102", 3, "Jungle", 350.00, dateList),
+            new Room("103", 1, "Jungle", 350.00, dateList),
+            new Room("104", 3, "Jungle", 350.00, dateList),
+            new Room("105", 1, "Jungle", 350.00, dateList),
+            new Room("106", 3, "Jungle", 350.00, dateList),
+            new Room("107", 2, "Jungle", 350.00, dateList),
+            new Room("108", 2, "Jungle", 350.00, dateList),
+            new Room("109", 3, "Jungle", 350.00, dateList),
+            new Room("110", 2, "Jungle", 350.00, dateList),
+            new Room("201", 3, "Sea", 350.00, dateList),
+            new Room("202", 3, "Sea", 350.00, dateList),
+            new Room("203", 1, "Sea", 350.00, dateList),
+            new Room("204", 3, "Sea", 350.00, dateList),
+            new Room("205", 1, "Sea", 350.00, dateList),
+            new Room("206", 3, "Sea", 350.00, dateList),
+            new Room("207", 2, "Sea", 350.00, dateList),
+            new Room("208", 2, "Sea", 350.00, dateList),
+            new Room("209", 3, "Sea", 350.00, dateList),
+            new Room("210", 2, "Sea", 350.00, dateList)
         };
         
 
