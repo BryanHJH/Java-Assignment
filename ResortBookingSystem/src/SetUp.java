@@ -18,6 +18,19 @@ import Classes.Staff;
 
 public class SetUp {
 
+    /**
+     * Function Name: readRoomFile <p>
+     * Inside the function: <p>
+     * 1. Create a Gson and a FileReader object <p>
+     * 2. Read the contents of the selected file and store it as a Room Array <p>
+     * 3. Return the Room array <p>
+     *  
+     * @param file
+     * @return Room[]
+     * @throws FileNotFoundException
+     * @throws ParseException
+     * 
+     */
     public static Room[] readRoomFile(File file) throws FileNotFoundException, ParseException {
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
@@ -25,6 +38,19 @@ public class SetUp {
         return roomList;
     }
 
+    /**
+     * Function Name: readStaffFile <p>
+     * Inside the function: <p>
+     * 1. Create a Gson and a FileReader object <p>
+     * 2. Read the contents of the selected file and store it as a Staff Array <p>
+     * 3. Return the Staff array <p>
+     * 
+     * @param file
+     * @return Staff[]
+     * @throws FileNotFoundException
+     * @throws ParseException
+     * 
+     */
     public static Staff[] readStaffFile(File file) throws FileNotFoundException, ParseException {
         Gson gson = new Gson();
         Reader reader = new FileReader(file);
@@ -34,6 +60,15 @@ public class SetUp {
 
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.US);
 
+    /**
+     * main method <p>
+     * Used to add the necessary information into the text files before the system can run <p>
+     * E.g. <p>
+     * 1. adds the room information into the system before the system is first launched <p>
+     * 2. adds the hotel staff into the system before the system is first launched <p>
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         
         ArrayList<LocalDate> dateList = new ArrayList<LocalDate>() {
@@ -79,51 +114,7 @@ public class SetUp {
         testHotel.addStaff(new Staff("Bam", "bam@resort.com", "bamresort", "15-5-1950", "111111103938", false));
         testHotel.addStaff(new Staff("Gavin", "gavin@resort.com", "gavinresort", "13-3-1995", "111111102838", false));
 
-        testHotel.removeStaff("Ron");
-        System.out.println(testHotel);
         testHotel.saveStaffData();
         testHotel.saveRoomData();
-
-        File staffFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Staff.txt");
-        Staff[] staffList = readStaffFile(staffFile);
-        for (Staff staff: staffList) {
-            System.out.println(staff);
-        }
-
-        // String[] test = printContents(staffFile);
-
-        // for (String staff: test) {
-        //     String[] staffDetails = staff.split("; ");
-        //     for (String details: staffDetails) {
-        //         System.out.println(details);
-        //     }
-
-        //     System.out.println("\n");
-        // }
-        
-        File roomFile = new File("C:\\Users\\2702b\\OneDrive - Asia Pacific University\\Diploma\\Semester 5\\Java Programming\\Assignment\\ResortBookingSystem\\src\\Text Files\\Rooms.json");
-        // String[] roomTest = printContents(roomFile);
-        Room[] roomList = readRoomFile(roomFile);
-        for (Room room: roomList) {
-            if (room.getRoomID().equals("101")) {
-                System.out.println(room.getRoomID());
-            }
-        }
-
-        // testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("110")).getRoomID(), "14-03-2022");
-        LocalDate startDate = LocalDate.parse("13-03-2022", dateFormatter);
-        LocalDate endDate = LocalDate.parse("15-03-2022", dateFormatter);
-        
-        // ArrayList<LocalDate> newDates = new ArrayList<LocalDate>();
-        List<LocalDate> dates = startDate.datesUntil(endDate).collect(Collectors.toList());
-        // System.out.println(dates);
-        for (LocalDate date: dates) {
-            testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("101")).getRoomID(), dateFormatter.format(date));
-        }
-        testHotel.removeDate(testHotel.getRoom(testHotel.searchRoom("101")).getRoomID(), "15-03-2022");
-
-        // System.out.println(newDates);
-        System.out.println(testHotel.getRoom(testHotel.searchRoom("101")).getAvailableDates());
-        System.out.println(testHotel.getRoom(1).getAvailableDates());
     }
 }
